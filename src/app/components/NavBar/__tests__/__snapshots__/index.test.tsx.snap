@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavBar /> should match snapshot 1`] = `
+<NavBar__Wrapper>
+  <PageWrapper>
+    <Logo />
+    <Nav />
+  </PageWrapper>
+</NavBar__Wrapper>
+`;
