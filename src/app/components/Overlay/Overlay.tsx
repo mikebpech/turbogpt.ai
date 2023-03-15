@@ -115,9 +115,11 @@ const Wrapper = styled.nav<any>`
   top: ${props => (props.isOpened ? StyleConstants.NAV_BAR_HEIGHT : '110vh')};
   transition: all 0.3s ease-in-out;
   left: 0;
+  overflow-y: auto;
+  max-height: 90vh;
   width: 100vw;
-  height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
   background-color: ${props => props.theme.backgroundVariant};
+  padding-bottom: ${StyleConstants.NAV_BAR_HEIGHT};
 `;
 
 const Inner = styled.div`
