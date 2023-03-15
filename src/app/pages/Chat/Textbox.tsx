@@ -84,4 +84,5 @@ const Wrapper = styled.main<any>`
 
 const Character = styled.div`
   color: ${props => props.theme.textSecondary};
+  padding-bottom: 5px;
 `;

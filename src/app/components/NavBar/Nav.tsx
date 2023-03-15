@@ -10,7 +10,7 @@ import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import styled from 'styled-components/macro';
 import { ReactComponent as TwitterIcon } from './assets/twitter.svg';
 import { useMediaQuery } from 'react-responsive';
-import { Drawer } from '@mantine/core';
+import { Overlay } from '../Overlay/Overlay';
 
 export function Nav() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -28,13 +28,7 @@ export function Nav() {
         ) : (
           <IconMenu2 onClick={toggleMenu} size={24} />
         )}
-        <Drawer
-          opened={menuOpen}
-          onClose={() => setMenuOpen(false)}
-          title="Authentication"
-        >
-          hi
-        </Drawer>
+        {menuOpen && <Overlay isOpened={menuOpen} />}
       </MobileWrapper>
     );
   }
@@ -69,6 +63,7 @@ const Wrapper = styled.nav`
   display: flex;
   margin-right: -1rem;
   align-items: center;
+  z-index: 1000;
 `;
 
 const Item = styled.a`
