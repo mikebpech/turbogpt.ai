@@ -83,7 +83,6 @@ const Wrapper = styled.main<any>`
   width: ${props => (props.isMobile ? '100%' : '60vw')};
   flex-direction: column;
   align-items: center;
-  min-height: 320px;
   margin-bottom: 0;
   padding-bottom: 0;
 `;
