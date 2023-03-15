@@ -2,6 +2,7 @@ import { Link } from 'app/components/Link';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { StyleConstants } from 'styles/StyleConstants';
 import { Message } from 'utils/types/injector-typings';
 import { getOpenAiKeyStatus } from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
@@ -77,7 +78,7 @@ const StyledLink = styled.a`
 const Wrapper = styled.div`
   width: 100%;
   z-index: 5;
-  min-height: 65vh;
+  min-height: calc(97% - ${StyleConstants.NAV_BAR_HEIGHT});
   overflow-y: auto;
   height: max-content;
   padding: 10px;
