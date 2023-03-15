@@ -24,18 +24,6 @@ export function ChatPage() {
           <Textbox />
         </Wrapper>
       </Body>
-      <div
-        data-tf-popover="An6RHMdE"
-        data-tf-opacity="100"
-        data-tf-iframe-props="title=TurboGPT Feedback"
-        data-tf-auto-close
-        data-tf-transitive-search-params
-        data-tf-button-color="#AF0407"
-        data-tf-notification-days="7"
-        data-tf-medium="snippet"
-        style={{ all: 'unset' }}
-      ></div>
-      <script src="//embed.typeform.com/next/embed.js"></script>
     </>
   );
 }
