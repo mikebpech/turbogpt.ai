@@ -69,6 +69,7 @@ const Love = styled.div`
   display: flex;
   justify-content: center;
   color: ${props => props.theme.text};
+  margin-top: 10px;
 `;
 
 const Item = styled.a`
@@ -77,9 +78,9 @@ const Item = styled.a`
   text-decoration: none;
   display: flex;
   padding: 0.25rem 1rem;
-  font-size: 0.875rem;
   font-weight: 500;
   align-items: center;
+  font-size: 0.6rem;
 
   &:hover {
     opacity: 0.8;
@@ -99,9 +100,6 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  bottom: 20px;
-  right: 10px;
   width: 100%;
 
   .items {
