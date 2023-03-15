@@ -1,11 +1,34 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
+import ConfettiExplosion from 'react-confetti-explosion';
+import { Alert } from '@mantine/core';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 export function Logo() {
+  const [isHovering, setIsHovering] = React.useState(false);
+
+  // This will make a confetti explosion when the word explosion is hovered
+  React.useEffect(() => {
+    if (isHovering) {
+      setTimeout(() => setIsHovering(false), 3000);
+    }
+  }, [isHovering]);
+
   return (
     <Wrapper>
-      <Title>React Boilerplate</Title>
-      <Description>Create React App Template</Description>
+      <Title>🧨 TurboGPT</Title>
+      <Description>
+        chatgpt but{' '}
+        <span onMouseEnter={() => setIsHovering(true)}>explosive</span>
+      </Description>
+      {isHovering && (
+        <ConfettiExplosion
+          colors={['#ff0000']}
+          duration={3000}
+          particleSize={8}
+          width={150}
+        />
+      )}
     </Wrapper>
   );
 }

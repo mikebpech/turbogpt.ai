@@ -20,3 +20,8 @@ export interface InjectSagaParams {
   saga: Saga;
   mode?: SagaInjectionModes;
 }
+
+export type Message = {
+  role: string;
+  content: string;
+};

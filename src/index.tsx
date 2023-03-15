@@ -28,6 +28,7 @@ import reportWebVitals from 'reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Observe loading of Inter (to remove 'Inter', remove the <link> tag in
 // the index.html file and this observer)
@@ -39,6 +40,7 @@ openSansObserver.load().then(() => {
 });
 
 const store = configureAppStore();
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
@@ -48,7 +50,9 @@ root.render(
     <ThemeProvider>
       <HelmetProvider>
         <React.StrictMode>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
         </React.StrictMode>
       </HelmetProvider>
     </ThemeProvider>

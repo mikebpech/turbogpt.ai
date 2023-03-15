@@ -1,0 +1,62 @@
+import * as React from 'react';
+import styled from 'styled-components/macro';
+import { NavBar } from 'app/components/NavBar';
+import { Helmet } from 'react-helmet-async';
+import { StyleConstants } from 'styles/StyleConstants';
+import { Textbox } from './Textbox';
+import { LeftSidebar } from './components/LeftSidebar';
+
+export function ChatPage() {
+  return (
+    <>
+      <Helmet>
+        <title>Chat</title>
+        <meta name="description" content="Page not found" />
+      </Helmet>
+      <NavBar />
+      <Body>
+        <LeftSidebar />
+        <Wrapper>
+          <Title>🧨 TurboGPT</Title>
+          <Textbox />
+        </Wrapper>
+      </Body>
+    </>
+  );
+}
+
+const Body = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+`;
+
+const Wrapper = styled.div`
+  height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 320px;
+  position: relative;
+`;
+
+const Title = styled.div`
+  position: absolute;
+  top: 35vh;
+  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+  color: ${p => p.theme.text};
+  opacity: 0.2;
+  font-size: 2.375rem;
+  user-select: none;
+
+  span {
+    font-size: 2.125rem;
+  }
+`;

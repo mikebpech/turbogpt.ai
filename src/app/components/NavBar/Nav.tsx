@@ -1,28 +1,29 @@
 import * as React from 'react';
+import { IconHeartFilled } from '@tabler/icons-react';
+import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import styled from 'styled-components/macro';
-import { ReactComponent as DocumentationIcon } from './assets/documentation-icon.svg';
-import { ReactComponent as GithubIcon } from './assets/github-icon.svg';
+import { ReactComponent as TwitterIcon } from './assets/twitter.svg';
 
 export function Nav() {
   return (
     <Wrapper>
+      <ThemeSwitch />
       <Item
-        href="https://cansahin.gitbook.io/react-boilerplate-cra-template/"
+        href="https://ko-fi.com/mikepechousek"
         target="_blank"
-        title="Documentation Page"
-        rel="noopener noreferrer"
+        title="Buy me a coffee"
       >
-        <DocumentationIcon />
-        Documentation
+        Buy me a coffee{' '}
+        <IconHeartFilled style={{ marginLeft: 5, color: 'red' }} size={16} />
       </Item>
       <Item
-        href="https://github.com/react-boilerplate/react-boilerplate-cra-template"
+        href="https://twitter.com/mikepechousek"
         target="_blank"
-        title="Github Page"
+        title="Twitter Page"
         rel="noopener noreferrer"
       >
-        <GithubIcon />
-        Github
+        <TwitterIcon width={18} style={{ marginRight: 5 }} />
+        Twitter
       </Item>
     </Wrapper>
   );
@@ -31,6 +32,7 @@ export function Nav() {
 const Wrapper = styled.nav`
   display: flex;
   margin-right: -1rem;
+  align-items: center;
 `;
 
 const Item = styled.a`

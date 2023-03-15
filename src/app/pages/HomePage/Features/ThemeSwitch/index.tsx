@@ -20,17 +20,7 @@ export function ThemeSwitch() {
 
   return (
     <Wrapper>
-      <FormLabel>Select Theme</FormLabel>
       <Themes>
-        <Radio
-          id="system"
-          label="System theme"
-          className="radio"
-          name="theme"
-          onChange={handleThemeChange}
-          value="system"
-          isSelected={theme === 'system'}
-        />
         <Radio
           id="light"
           label="Light"
