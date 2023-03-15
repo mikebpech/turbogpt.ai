@@ -1,27 +1,32 @@
 import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components/macro';
-import { Message } from 'utils/types/injector-typings';
 import { ChatBubbles } from './components/ChatBubbles';
 import { Input } from './components/Input';
-import { P } from './P';
 import { sendMessage } from '../../api/openai';
-import { useSelector } from 'react-redux';
-import { getCharacter, getMood, getOpenAiApiKey } from './slice/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getCharacter,
+  getMessages,
+  getMood,
+  getOpenAiApiKey,
+} from './slice/selectors';
 import { characterOptions } from 'app/api/characters';
 import { useMediaQuery } from 'react-responsive';
-import { StyleConstants } from 'styles/StyleConstants';
+import { useChatOptionsSlice } from './slice';
 
 const defaultMessages = [
   { role: 'assistant', content: 'Hello there! Start by typing a message!' },
 ];
 
 export function Textbox() {
-  const [messages, setMessages] = React.useState<Message[]>(defaultMessages);
+  const messages = useSelector(getMessages);
   const apiKey = useSelector(getOpenAiApiKey);
   const characterSelected = useSelector(getCharacter);
   const moodSelected = useSelector(getMood);
+  const { actions } = useChatOptionsSlice();
 
+  const dispatch = useDispatch();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const { isLoading, isRefetching, refetch } = useQuery(
@@ -36,7 +41,7 @@ export function Textbox() {
         return response.json();
       });
       if (data.choices?.length > 0) {
-        setMessages([...messages, data.choices[0].message]);
+        dispatch(actions.setMessages([...messages, data.choices[0].message]));
       }
     },
     {
@@ -45,11 +50,13 @@ export function Textbox() {
   );
 
   useEffect(() => {
-    setMessages(defaultMessages);
+    dispatch(actions.setMessages(defaultMessages));
   }, [characterSelected]);
 
   const addMessage = (message: string) => {
-    setMessages([...messages, { role: 'user', content: message }]);
+    dispatch(
+      actions.setMessages([...messages, { role: 'user', content: message }]),
+    );
     setTimeout(() => {
       refetch();
     }, 1000);

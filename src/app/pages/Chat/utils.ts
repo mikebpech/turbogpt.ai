@@ -1,8 +1,11 @@
+import { Message } from 'utils/types/injector-typings';
+
 export function saveOpenAiKey(key: string) {
-  window.localStorage && localStorage.setItem('openAiKey', key);
+  if (key !== '') {
+    window.localStorage && localStorage.setItem('openAiKey', key);
+  }
 }
 
-/* istanbul ignore next line */
 export function getOpenAiKeyFromStorage(): string | null {
   return window.localStorage
     ? (localStorage.getItem('openAiKey') as string) || null
@@ -14,7 +17,6 @@ export function saveCustomUser(value: boolean) {
     localStorage.setItem('customUserName', value.toString());
 }
 
-/* istanbul ignore next line */
 export function getCustomUser(): string | null {
   return window.localStorage
     ? (localStorage.getItem('customUserName') as string) || null
@@ -25,9 +27,21 @@ export function saveCustomAvatar(avatar: string) {
   window.localStorage && localStorage.setItem('avatar', avatar);
 }
 
-/* istanbul ignore next line */
 export function getCustomAvatar(): string | null {
   return window.localStorage
     ? (localStorage.getItem('avatar') as string) || null
+    : null;
+}
+
+export function saveConversationsToStorage(conversations: Message[][]) {
+  window.localStorage &&
+    localStorage.setItem('conversations', JSON.stringify(conversations));
+}
+
+export function getConversationsFromStorage(): Message[][] | null {
+  return window.localStorage
+    ? (JSON.parse(
+        localStorage.getItem('conversations') as string,
+      ) as Message[][]) || null
     : null;
 }

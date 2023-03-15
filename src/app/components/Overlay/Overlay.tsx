@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider } from '@mantine/core';
+import { Divider, SegmentedControl } from '@mantine/core';
 import { APIKey } from 'app/pages/Chat/components/APIKey';
 import { ChatHistory } from 'app/pages/Chat/components/ChatHistory';
 import { MoodSlider } from 'app/pages/Chat/components/MoodSlider';
@@ -9,21 +9,53 @@ import { ReactComponent as TwitterIcon } from '../NavBar/assets/twitter.svg';
 import styled from 'styled-components';
 import { StyleConstants } from 'styles/StyleConstants';
 import { IconBulb, IconHeartFilled } from '@tabler/icons-react';
+import { useSelector } from 'react-redux';
+import { getVerifyingApiKey } from 'app/pages/Chat/slice/selectors';
+import { Conversations } from 'app/pages/Chat/components/Conversations';
 
 export function Overlay({ isOpened = false }: { isOpened: boolean }) {
+  const [selectedTab, setSelectedTab] = React.useState<number>(0);
+  const apiKeyVerifying = useSelector(getVerifyingApiKey);
+
+  const handleTabChange = (value: string) => {
+    setSelectedTab(parseInt(value));
+  };
+
   return (
     <Wrapper isOpened={isOpened}>
       <Inner>
-        <Title style={{ marginBottom: '10px' }}>🤯 Options</Title>
-        <ThemeSwitch />
-        <Divider my="md" variant="dashed" />
-        <APIKey />
-        <Divider my="md" variant="dashed" />
-        <SelectCharacter />
-        <Divider my="md" variant="dashed" />
-        <MoodSlider />
-        <Divider my="md" variant="dashed" />
-        <ChatHistory />
+        <SegmentedControl
+          mb="xs"
+          variant="filled"
+          color="red"
+          disabled={apiKeyVerifying}
+          size="md"
+          onChange={handleTabChange}
+          value={selectedTab.toString()}
+          data={[
+            { label: 'Options', value: '0' },
+            { label: 'Convos', value: '1' },
+          ]}
+        />
+        <Title>🤯 {selectedTab === 0 ? 'Options' : 'Convos'}</Title>
+        {selectedTab === 0 && (
+          <>
+            <ThemeSwitch />
+            <Divider my="md" variant="dashed" />
+            <APIKey />
+            <Divider my="md" variant="dashed" />
+            <SelectCharacter />
+            <Divider my="md" variant="dashed" />
+            <MoodSlider />
+            <Divider my="md" variant="dashed" />
+            <ChatHistory />
+          </>
+        )}
+        {selectedTab === 1 && (
+          <>
+            <Conversations />
+          </>
+        )}
         <Footer>
           <div className="items">
             <Item
@@ -136,7 +168,7 @@ const Inner = styled.div`
 
 const Title = styled.h2`
   padding: 0;
-  margin: 0;
+  margin: 10px 0;
   color: ${p => p.theme.text};
   font-weight: 500;
 `;

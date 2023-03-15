@@ -4,12 +4,16 @@ import { Loader, PasswordInput } from '@mantine/core';
 import { validateOpenAiKey } from 'utils/keyValidator';
 import debounce from 'lodash/debounce';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOpenAiApiKey } from '../slice/selectors';
+import {
+  getOpenAiApiKey,
+  getOpenAiKeyStatus,
+  getApiPrevKey,
+} from '../slice/selectors';
 import { IconCheck, IconLock, IconX } from '@tabler/icons-react';
 import { useChatOptionsSlice } from '../slice';
 import { checkOpenAiKeyValid } from 'app/api/openai';
 import { useQuery } from 'react-query';
-import { saveOpenAiKey } from '../utils';
+import { getOpenAiKeyFromStorage, saveOpenAiKey } from '../utils';
 
 export function APIKey() {
   const [apiKey, setApiKey] = React.useState<string>(
@@ -18,6 +22,8 @@ export function APIKey() {
   const [error, setError] = React.useState<string | null>(null);
   const dispatch = useDispatch();
   const { actions } = useChatOptionsSlice();
+  const apiKeyStatus = useSelector(getOpenAiKeyStatus);
+  const apiKeyPrev = useSelector(getApiPrevKey);
 
   const { isLoading, isFetching, data, isError, refetch } = useQuery(
     'apiKey',
@@ -30,6 +36,9 @@ export function APIKey() {
 
   const debouncedDispatch = useCallback(
     debounce(async key => {
+      if (apiKeyStatus && apiKey && apiKey === apiKeyPrev) {
+        return;
+      }
       dispatch(actions.setVerifyingApiKey(true));
       refetch(key);
     }, 250),
@@ -42,6 +51,7 @@ export function APIKey() {
     } else {
       dispatch(actions.changeOpenAiApiKey(apiKey));
       dispatch(actions.setOpenAiKeyStatus(true));
+      dispatch(actions.setApiKeyPrevKey(apiKey));
     }
   }, [data]);
 
@@ -53,17 +63,19 @@ export function APIKey() {
   useEffect(() => {
     if (apiKey.length === 0) {
       setError(null);
+      dispatch(actions.setOpenAiKeyStatus(false));
     }
     if (apiKey) {
       const valid = validateOpenAiKey(apiKey);
       if (!valid) {
         setError('Invalid API Key');
+        dispatch(actions.setOpenAiKeyStatus(false));
       } else {
         setError(null);
         debouncedDispatch(apiKey);
       }
     }
-  }, [apiKey, debouncedDispatch]);
+  }, [apiKey, debouncedDispatch, dispatch]);
 
   const generateIcon = () => {
     if (!apiKey) {

@@ -1,3 +1,5 @@
+import { Message } from 'utils/types/injector-typings';
+
 /* --- STATE --- */
 export interface ChatOptionsState {
   selectedCharacter: string;
@@ -6,4 +8,8 @@ export interface ChatOptionsState {
   openAiKeyStatus: boolean;
   generateName: boolean;
   verifyingApiKey: boolean;
+  apiPrevKey: string;
+  messages: Message[];
+  conversations: Message[][];
+  selectedConversation: number;
 }

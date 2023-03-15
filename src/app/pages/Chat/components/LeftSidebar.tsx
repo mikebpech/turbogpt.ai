@@ -1,24 +1,57 @@
-import { Divider } from '@mantine/core';
+import { Divider, SegmentedControl } from '@mantine/core';
 import { IconHeartFilled } from '@tabler/icons-react';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getVerifyingApiKey } from '../slice/selectors';
 import { APIKey } from './APIKey';
 import { ChatHistory } from './ChatHistory';
+import { Conversations } from './Conversations';
 import { MoodSlider } from './MoodSlider';
 import SelectCharacter from './SelectCharacter';
 
 export function LeftSidebar() {
+  const [selectedTab, setSelectedTab] = React.useState<number>(0);
+  const apiKeyVerifying = useSelector(getVerifyingApiKey);
+
+  const handleTabChange = (value: string) => {
+    setSelectedTab(parseInt(value));
+  };
+
   return (
     <Wrapper>
       <Inner>
-        <Title style={{ marginBottom: '10px' }}>🤯 Options</Title>
-        <APIKey />
-        <Divider my="md" variant="dashed" />
-        <SelectCharacter />
-        <Divider my="md" variant="dashed" />
-        <MoodSlider />
-        <Divider my="md" variant="dashed" />
-        <ChatHistory />
+        <TitleWrapper>
+          <Title>🤯 {selectedTab === 0 ? 'Options' : 'Convos'}</Title>
+          <SegmentedControl
+            disabled={apiKeyVerifying}
+            size="xs"
+            onChange={handleTabChange}
+            value={selectedTab.toString()}
+            color="red"
+            variant="filled"
+            data={[
+              { label: 'Options', value: '0' },
+              { label: 'Convos', value: '1' },
+            ]}
+          />
+        </TitleWrapper>
+        {selectedTab === 0 && (
+          <>
+            <APIKey />
+            <Divider my="md" variant="dashed" />
+            <SelectCharacter />
+            <Divider my="md" variant="dashed" />
+            <MoodSlider />
+            <Divider my="md" variant="dashed" />
+            <ChatHistory />
+          </>
+        )}
+        {selectedTab === 1 && (
+          <>
+            <Conversations />
+          </>
+        )}
         <Love>
           Made with{' '}
           <IconHeartFilled
@@ -31,6 +64,20 @@ export function LeftSidebar() {
     </Wrapper>
   );
 }
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+const Title = styled.h2`
+  padding: 0;
+  margin: 0;
+  color: ${p => p.theme.text};
+  font-weight: bold;
+`;
 
 const Wrapper = styled.div`
   width: 30vw;
@@ -45,13 +92,6 @@ const Inner = styled.div`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   width: 320px;
   padding: 20px;
-`;
-
-const Title = styled.h2`
-  padding: 0;
-  margin: 0;
-  color: ${p => p.theme.text};
-  font-weight: bold;
 `;
 
 const Love = styled.div`

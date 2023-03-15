@@ -18,6 +18,10 @@ export const getOpenAiApiKey = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.openAiApiKey,
 );
+export const getApiPrevKey = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.apiPrevKey,
+);
 export const getOpenAiKeyStatus = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.openAiKeyStatus,
@@ -29,4 +33,16 @@ export const getGenerateName = createSelector(
 export const getVerifyingApiKey = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.verifyingApiKey,
+);
+export const getMessages = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.messages,
+);
+export const getConversations = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.conversations,
+);
+export const getSelectedConversation = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.selectedConversation,
 );

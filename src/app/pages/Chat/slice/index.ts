@@ -9,6 +9,8 @@ import {
   getOpenAiKeyFromStorage,
   saveCustomUser,
   saveOpenAiKey,
+  getConversationsFromStorage,
+  saveConversationsToStorage,
 } from '../utils';
 
 export const initialState: ChatOptionsState = {
@@ -16,8 +18,12 @@ export const initialState: ChatOptionsState = {
   chatMood: 50,
   openAiApiKey: getOpenAiKeyFromStorage() || '',
   openAiKeyStatus: false,
+  apiPrevKey: '',
   generateName: getCustomUser() === 'true' || false,
   verifyingApiKey: false,
+  messages: [],
+  conversations: getConversationsFromStorage() || [],
+  selectedConversation: 0,
 };
 
 const slice = createSlice({
@@ -32,9 +38,14 @@ const slice = createSlice({
     },
     changeOpenAiApiKey(state, action: PayloadAction<string>) {
       state.openAiApiKey = action.payload;
-      console.log('--- 🧨 Saving OpenAI Key to LocalStorage ---');
-      saveOpenAiKey(action.payload);
       state.verifyingApiKey = false;
+      saveOpenAiKey(action.payload);
+    },
+    setApiKeyPrevKey(state, action: PayloadAction<string>) {
+      state.apiPrevKey = action.payload;
+    },
+    getOpenAiApiKey(state) {
+      state.openAiApiKey = getOpenAiKeyFromStorage() || '';
     },
     setOpenAiKeyStatus(state, action: PayloadAction<boolean>) {
       state.openAiKeyStatus = action.payload;
@@ -46,6 +57,27 @@ const slice = createSlice({
     },
     setVerifyingApiKey(state, action: PayloadAction<boolean>) {
       state.verifyingApiKey = action.payload;
+    },
+    setMessages(state, action: PayloadAction<any>) {
+      state.messages = action.payload;
+      const currentConvo = state.selectedConversation;
+      state.conversations[currentConvo] = action.payload;
+      saveConversationsToStorage(state.conversations);
+    },
+    addConversation(state, action: PayloadAction<any>) {
+      state.conversations.push(action.payload);
+      state.selectedConversation = state.conversations.length - 1;
+      state.messages = [];
+      saveConversationsToStorage(state.conversations);
+    },
+    removeConversation(state, action: PayloadAction<number>) {
+      state.conversations.splice(action.payload, 1);
+      state.selectedConversation = state.conversations.length - 1;
+      saveConversationsToStorage(state.conversations);
+    },
+    setSelectedConversation(state, action: PayloadAction<number>) {
+      state.selectedConversation = action.payload;
+      state.messages = state.conversations[action.payload];
     },
   },
 });
