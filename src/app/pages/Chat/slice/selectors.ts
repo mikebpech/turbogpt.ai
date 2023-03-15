@@ -26,3 +26,7 @@ export const getGenerateName = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.generateName,
 );
+export const getVerifyingApiKey = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.verifyingApiKey,
+);

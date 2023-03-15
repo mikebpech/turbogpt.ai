@@ -9,6 +9,7 @@ import {
   getOpenAiKeyStatus,
   getGenerateName,
   getCharacter,
+  getVerifyingApiKey,
 } from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
 import { MessageComponent } from './MessageComponent';
@@ -24,6 +25,7 @@ export function ChatBubbles({
   const apiKeyValid = useSelector(getOpenAiKeyStatus);
   const useCustomName = useSelector(getGenerateName);
   const selectedCharacter = useSelector(getCharacter);
+  const verifyingKey = useSelector(getVerifyingApiKey);
   const [customName, setCustomName] = React.useState('');
   const [avatar, setAvatar] = React.useState('');
 
@@ -64,7 +66,7 @@ export function ChatBubbles({
     <Wrapper>
       {messages.map((message, index) => {
         if (message.role === 'system') return null;
-        if (!apiKeyValid)
+        if (!apiKeyValid && !verifyingKey)
           return (
             <>
               <MessageComponent
@@ -93,6 +95,18 @@ export function ChatBubbles({
               />
             </>
           );
+
+        if (verifyingKey) {
+          return (
+            <MessageComponent
+              customName={customName}
+              avatar={avatar}
+              useCustomName={useCustomName}
+              role="assistant"
+              message="Verifying API key..."
+            />
+          );
+        }
 
         return (
           <MessageComponent

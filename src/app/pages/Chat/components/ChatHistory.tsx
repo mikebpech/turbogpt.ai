@@ -6,7 +6,10 @@ export function ChatHistory() {
   return (
     <Wrapper>
       <Blockquote color="red" cite="– Mike Pechousek">
-        <Title>Some quote about how previous chats are coming soon.</Title>
+        <Title>
+          Some quote about how previous chats & image generation are coming
+          soon.
+        </Title>
       </Blockquote>
     </Wrapper>
   );

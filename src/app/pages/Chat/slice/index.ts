@@ -17,6 +17,7 @@ export const initialState: ChatOptionsState = {
   openAiApiKey: getOpenAiKeyFromStorage() || '',
   openAiKeyStatus: false,
   generateName: getCustomUser() === 'true' || false,
+  verifyingApiKey: false,
 };
 
 const slice = createSlice({
@@ -33,13 +34,18 @@ const slice = createSlice({
       state.openAiApiKey = action.payload;
       console.log('--- 🧨 Saving OpenAI Key to LocalStorage ---');
       saveOpenAiKey(action.payload);
+      state.verifyingApiKey = false;
     },
     setOpenAiKeyStatus(state, action: PayloadAction<boolean>) {
       state.openAiKeyStatus = action.payload;
+      state.verifyingApiKey = false;
     },
     setGenerateName(state, action: PayloadAction<boolean>) {
       state.generateName = action.payload;
       saveCustomUser(action.payload);
+    },
+    setVerifyingApiKey(state, action: PayloadAction<boolean>) {
+      state.verifyingApiKey = action.payload;
     },
   },
 });

@@ -5,4 +5,5 @@ export interface ChatOptionsState {
   openAiApiKey: string;
   openAiKeyStatus: boolean;
   generateName: boolean;
+  verifyingApiKey: boolean;
 }

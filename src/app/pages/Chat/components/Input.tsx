@@ -89,7 +89,7 @@ const InputWrapper = styled.form<any>`
   width: 100%;
   max-width: ${props => (props.isMobile ? '90%' : '80vw')};
   position: ${props => (props.isMobile ? 'fixed' : 'relative')};
-  bottom: ${props => (props.isMobile ? '30px' : 'auto')};
+  bottom: ${props => (props.isMobile ? '30px' : '20px')};
   left: 0;
   right: 0;
   margin: 0 auto;

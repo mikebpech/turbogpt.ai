@@ -24,11 +24,13 @@ export function APIKey() {
     () => checkOpenAiKeyValid(apiKey),
     {
       enabled: false,
+      refetchOnMount: false,
     },
   );
 
   const debouncedDispatch = useCallback(
     debounce(async key => {
+      dispatch(actions.setVerifyingApiKey(true));
       refetch(key);
     }, 250),
     [dispatch],
