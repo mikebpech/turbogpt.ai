@@ -63,7 +63,10 @@ export function ChatBubbles({
           />
         );
       })}
-      <div style={{ height: '10px' }} ref={messagesEndRef} />
+      <div
+        style={{ height: '8px', marginTop: 0, paddingBottom: '5px' }}
+        ref={messagesEndRef}
+      />
       <EllipsisAnimation visible={isTyping} />
     </Wrapper>
   );
@@ -80,6 +83,6 @@ const Wrapper = styled.div`
   z-index: 5;
   min-height: calc(97% - ${StyleConstants.NAV_BAR_HEIGHT});
   overflow-y: auto;
-  height: max-content;
+  height: 100%;
   padding: 10px;
 `;

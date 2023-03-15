@@ -90,6 +90,8 @@ export const MessageComponent = ({
         justifyContent: role === 'assistant' ? 'flex-start' : 'flex-end',
         opacity: visible ? 1 : 0,
         visibility: visible ? 'visible' : 'hidden',
+        height: visible ? 'auto' : 0,
+        margin: visible ? '15px 0' : 0,
         transition: 'opacity 0.3s ease-in-out',
       }}
     >

@@ -41,6 +41,8 @@ const Wrapper = styled.div<any>`
   flex-direction: column;
   align-items: center;
   min-height: 320px;
+  padding: 25px 0;
+  padding-top: ${props => props.isMobile && '0'};
   position: relative;
   width: ${props => props.isMobile && '100%'};
 `;

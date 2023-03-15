@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  IconHeartFilled,
-  IconMenu,
-  IconMenu2,
-  IconStack3,
-  IconX,
-} from '@tabler/icons-react';
+import { IconHeartFilled, IconMenu2, IconX } from '@tabler/icons-react';
 import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import styled from 'styled-components/macro';
 import { ReactComponent as TwitterIcon } from './assets/twitter.svg';
@@ -24,11 +18,12 @@ export function Nav() {
     return (
       <MobileWrapper>
         {menuOpen ? (
+          // TODO: MAKE THESE WORK WITH DARK MODE
           <IconX onClick={toggleMenu} size={24} />
         ) : (
           <IconMenu2 onClick={toggleMenu} size={24} />
         )}
-        {menuOpen && <Overlay isOpened={menuOpen} />}
+        {isTabletOrMobile && <Overlay isOpened={menuOpen} />}
       </MobileWrapper>
     );
   }
@@ -57,7 +52,9 @@ export function Nav() {
   );
 }
 
-const MobileWrapper = styled.nav``;
+const MobileWrapper = styled.nav`
+  color: ${props => props.theme.text};
+`;
 
 const Wrapper = styled.nav`
   display: flex;

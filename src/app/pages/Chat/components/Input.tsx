@@ -7,18 +7,41 @@ import { useMediaQuery } from 'react-responsive';
 
 export function Input({
   addMessage,
+  disabled = false,
 }: {
   addMessage: (message: string) => void;
+  disabled: boolean;
 }) {
   const [message, setMessage] = React.useState<string>('');
+  const [loading, setLoading] = React.useState<boolean>(false);
   const apiKeyStatus = useSelector(getOpenAiKeyStatus);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!message) {
+      return;
+    }
+
+    if (disabled) {
+      return;
+    }
+
+    if (loading) {
+      return;
+    }
+
     addMessage(message);
+    setLoading(true);
     setMessage('');
   };
+
+  React.useEffect(() => {
+    if (!disabled) {
+      setLoading(false);
+    }
+  }, [disabled]);
 
   return (
     <Wrapper>
@@ -37,7 +60,8 @@ export function Input({
         />
 
         <Button
-          disabled={!apiKeyStatus}
+          disabled={!apiKeyStatus || disabled}
+          loading={loading}
           type="submit"
           size={isTabletOrMobile ? 'md' : 'lg'}
           left={5}
@@ -54,16 +78,24 @@ export function Input({
 
 const Wrapper = styled.div`
   width: 100%;
-  height: fit-content;
+  height: 100%;
   padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
+  height: fit-content;
+  z-index: 100;
 `;
 
 const InputWrapper = styled.form<any>`
   width: 100%;
   max-width: ${props => (props.isMobile ? '90%' : '80vw')};
+  position: ${props => (props.isMobile ? 'fixed' : 'relative')};
+  bottom: 5;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 `;

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { NativeSelect } from '@mantine/core';
+import { Checkbox, NativeSelect } from '@mantine/core';
 import styled from 'styled-components/macro';
 import debounce from 'lodash/debounce';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,6 +33,11 @@ function SelectCharacter() {
         description="This will give your AI a personality and cater the conversation to your preferences. Note: This will clear your current conversation."
         variant="default"
       />
+      <Checkbox
+        color="red"
+        className="checkbox"
+        label="Spare me a random name?"
+      />
     </Wrapper>
   );
 }
@@ -41,4 +46,8 @@ export default SelectCharacter;
 
 const Wrapper = styled.div`
   margin-bottom: 10px;
+
+  .checkbox {
+    margin-top: 10px;
+  }
 `;

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { getCharacter, getMood, getOpenAiApiKey } from './slice/selectors';
 import { characterOptions } from 'app/api/characters';
 import { useMediaQuery } from 'react-responsive';
+import { StyleConstants } from 'styles/StyleConstants';
 
 const defaultMessages = [
   { role: 'assistant', content: 'Hello there! Start by typing a message!' },
@@ -56,23 +57,31 @@ export function Textbox() {
 
   return (
     <Wrapper isMobile={isTabletOrMobile}>
-      <P>
+      <Model>
         Model: <b>turbo-gpt-3.5</b>
-      </P>
+      </Model>
       {characterSelected !== characterOptions[0] && (
         <Character>
           You are now speaking to a virtual {characterSelected}. Cool eh?
         </Character>
       )}
       <ChatBubbles isTyping={isLoading || isRefetching} messages={messages} />
-      <Input addMessage={addMessage} />
+      <Input disabled={isLoading || isRefetching} addMessage={addMessage} />
     </Wrapper>
   );
 }
 
+export const Model = styled.p`
+  font-size: 1rem;
+  line-height: 1.5;
+  color: ${p => p.theme.textSecondary};
+  margin: 0;
+  position: absolute;
+  top: 15px;
+`;
+
 const Wrapper = styled.main<any>`
-  margin-top: 5vh;
-  height: 80vh;
+  height: 100%;
   display: flex;
   width: ${props => (props.isMobile ? '100%' : '60vw')};
   flex-direction: column;
