@@ -82,7 +82,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  position: relative;
   z-index: 100;
 `;
 
@@ -90,7 +89,7 @@ const InputWrapper = styled.form<any>`
   width: 100%;
   max-width: ${props => (props.isMobile ? '90%' : '80vw')};
   position: ${props => (props.isMobile ? 'fixed' : 'relative')};
-  bottom: 5;
+  bottom: 30px;
   left: 0;
   right: 0;
   margin: 0 auto;

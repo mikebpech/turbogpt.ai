@@ -85,6 +85,7 @@ const Wrapper = styled.main<any>`
   align-items: center;
   margin-bottom: 0;
   padding-bottom: 0;
+  position: relative;
 `;
 
 const Character = styled.div`
