@@ -1,4 +1,5 @@
 import { Divider } from '@mantine/core';
+import { IconHeartFilled } from '@tabler/icons-react';
 import React from 'react';
 import styled from 'styled-components';
 import { APIKey } from './APIKey';
@@ -18,6 +19,14 @@ export function LeftSidebar() {
         <MoodSlider />
         <Divider my="md" variant="dashed" />
         <ChatHistory />
+        <Love>
+          Made with{' '}
+          <IconHeartFilled
+            size={16}
+            style={{ margin: '0 5px', color: 'red' }}
+          />{' '}
+          in Montreal
+        </Love>
       </Inner>
     </Wrapper>
   );
@@ -43,4 +52,12 @@ const Title = styled.h2`
   margin: 0;
   color: ${p => p.theme.text};
   font-weight: bold;
+`;
+
+const Love = styled.div`
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  color: ${props => props.theme.text};
+  font-weight: 500;
 `;

@@ -59,9 +59,8 @@ export function ChatBubbles({
                 message={
                   <span>
                     <StyledLink target="_blank" href="#">
-                      Please add a valid OpenAI API key to use this feature. Get
-                      yours here! You will need to create an account, by the
-                      way.
+                      Please add a valid OpenAI API key in the menu. Get yours
+                      here! You will need to create an account, by the way.
                     </StyledLink>
                   </span>
                 }

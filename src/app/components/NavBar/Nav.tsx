@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { IconHeartFilled, IconMenu2, IconX } from '@tabler/icons-react';
+import {
+  IconBulb,
+  IconHeartFilled,
+  IconMenu2,
+  IconX,
+} from '@tabler/icons-react';
 import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import styled from 'styled-components/macro';
 import { ReactComponent as TwitterIcon } from './assets/twitter.svg';
@@ -40,13 +45,17 @@ export function Nav() {
         <IconHeartFilled style={{ marginLeft: 5, color: 'red' }} size={16} />
       </Item>
       <Item
-        href="https://twitter.com/mikepechousek"
+        href="https://twitter.com/turbogpt"
         target="_blank"
         title="Twitter Page"
         rel="noopener noreferrer"
       >
         <TwitterIcon width={18} style={{ marginRight: 5 }} />
         Twitter
+      </Item>
+      <Item href="https://hccar8zm06k.typeform.com/to/An6RHMdE" target="_blank">
+        <IconBulb width={18} style={{ marginRight: 5 }} />
+        Idea
       </Item>
     </Wrapper>
   );

@@ -8,6 +8,8 @@ import {
   characterOptions,
   characterOptionsWithEmojis,
 } from 'app/api/characters';
+import { Actions } from './Actions';
+import { useMediaQuery } from 'react-responsive';
 
 interface MessageComponentProps {
   role?: string;
@@ -59,7 +61,12 @@ export const MessageComponent = ({
       // Add the <Code> component with the wrapped lines
       parts.push(
         <CodeWrapper>
-          <Prism withLineNumbers language="tsx" key={match.index}>
+          <Prism
+            className="prism"
+            withLineNumbers
+            language="tsx"
+            key={match.index}
+          >
             {match[1]}
           </Prism>
         </CodeWrapper>,
@@ -89,6 +96,8 @@ export const MessageComponent = ({
 
     return characterOptionsWithEmojis[characterSelected] || 'AI';
   };
+
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   return (
     <Message
@@ -126,11 +135,19 @@ export const MessageComponent = ({
             {customName}
           </Badge>
         )}
-        <Text>{detectFormatting(message)}</Text>
+        <MessageBar>
+          <Text isMobile={isMobile}>{detectFormatting(message)}</Text>
+          {role === 'assistant' && <Actions copyValue={message as string} />}
+        </MessageBar>
       </BubbleWrap>
     </Message>
   );
 };
+
+const MessageBar = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const Message = styled.div`
   display: flex;
@@ -140,13 +157,18 @@ const Message = styled.div`
 
 const BubbleWrap = styled.div``;
 
-const Text = styled.p`
+const Text = styled.p<any>`
   margin: 0 10px;
   color: white;
   background-color: ${props => props.theme.chatBubbleSystem};
   padding: 10px;
   font-size: 1rem;
   border-radius: 0.5rem;
+
+  .prism {
+    max-width: ${props => (props.isMobile ? '66vw' : 'unset')};
+    overflow-x: auto;
+  }
 `;
 
 const InnerText = styled.p`

@@ -8,7 +8,7 @@ import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import { ReactComponent as TwitterIcon } from '../NavBar/assets/twitter.svg';
 import styled from 'styled-components';
 import { StyleConstants } from 'styles/StyleConstants';
-import { IconHeartFilled } from '@tabler/icons-react';
+import { IconBulb, IconHeartFilled } from '@tabler/icons-react';
 
 export function Overlay({ isOpened = false }: { isOpened: boolean }) {
   return (
@@ -25,31 +25,51 @@ export function Overlay({ isOpened = false }: { isOpened: boolean }) {
         <Divider my="md" variant="dashed" />
         <ChatHistory />
         <Footer>
-          <Item
-            href="https://ko-fi.com/mikepechousek"
-            target="_blank"
-            title="Buy me a coffee"
-          >
-            Buy me a coffee{' '}
+          <div className="items">
+            <Item
+              href="https://ko-fi.com/mikepechousek"
+              target="_blank"
+              title="Buy me a coffee"
+            >
+              Buy me a coffee
+            </Item>
+            <Item
+              href="https://twitter.com/turbogpt"
+              target="_blank"
+              title="Twitter Page"
+              rel="noopener noreferrer"
+            >
+              <TwitterIcon width={18} style={{ marginRight: 5 }} />
+              Twitter
+            </Item>
+            <Item
+              href="https://hccar8zm06k.typeform.com/to/An6RHMdE"
+              target="_blank"
+            >
+              <IconBulb width={18} style={{ marginRight: 5 }} />
+              Idea
+            </Item>
+          </div>
+          <Love>
+            Made with{' '}
             <IconHeartFilled
-              style={{ marginLeft: 5, color: 'red' }}
-              size={16}
-            />
-          </Item>
-          <Item
-            href="https://twitter.com/mikepechousek"
-            target="_blank"
-            title="Twitter Page"
-            rel="noopener noreferrer"
-          >
-            <TwitterIcon width={18} style={{ marginRight: 5 }} />
-            Twitter
-          </Item>
+              size={12}
+              style={{ margin: '0 5px', color: 'red' }}
+            />{' '}
+            in Montreal
+          </Love>
         </Footer>
       </Inner>
     </Wrapper>
   );
 }
+
+const Love = styled.div`
+  font-size: 0.5rem;
+  display: flex;
+  justify-content: center;
+  color: ${props => props.theme.text};
+`;
 
 const Item = styled.a`
   color: ${p => p.theme.primary};
@@ -76,11 +96,18 @@ const Item = styled.a`
 
 const Footer = styled.footer`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   bottom: 20px;
-  justify-content: center;
   right: 10px;
   width: 100%;
+
+  .items {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 // This is an overlay wrapper for mobile
@@ -110,5 +137,5 @@ const Title = styled.h2`
   padding: 0;
   margin: 0;
   color: ${p => p.theme.text};
-  font-weight: bold;
+  font-weight: 500;
 `;

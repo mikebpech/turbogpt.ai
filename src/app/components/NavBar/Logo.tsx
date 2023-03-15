@@ -1,9 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
 import ConfettiExplosion from 'react-confetti-explosion';
-import { Alert } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
 import { useMediaQuery } from 'react-responsive';
+import { ReactComponent as LogoIcon } from './assets/logo.svg';
 
 export function Logo() {
   const [isHovering, setIsHovering] = React.useState(false);
@@ -18,7 +17,14 @@ export function Logo() {
 
   return (
     <Wrapper>
-      <Title>🧨 TurboGPT</Title>
+      <Title>
+        <LogoIcon
+          width={25}
+          height={25}
+          style={{ marginBottom: '5px', imageRendering: 'crisp-edges' }}
+        />{' '}
+        TurboGPT
+      </Title>
       {!isTabletOrMobile && (
         <Description>
           chatgpt but{' '}

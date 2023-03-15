@@ -12,6 +12,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import FontFaceObserver from 'fontfaceobserver';
+import ReactGA from 'react-ga4';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -44,6 +45,8 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+const TRACKING_ID = 'G-8FM082EL58';
+ReactGA.initialize(TRACKING_ID);
 
 root.render(
   <Provider store={store}>

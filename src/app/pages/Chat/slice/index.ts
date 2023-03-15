@@ -4,14 +4,19 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { chatOptionsSaga } from './saga';
 import { ChatOptionsState } from './types';
-import { getOpenAiKeyFromStorage, saveOpenAiKey } from '../utils';
+import {
+  getCustomUser,
+  getOpenAiKeyFromStorage,
+  saveCustomUser,
+  saveOpenAiKey,
+} from '../utils';
 
 export const initialState: ChatOptionsState = {
   selectedCharacter: 'Default AI',
   chatMood: 50,
   openAiApiKey: getOpenAiKeyFromStorage() || '',
   openAiKeyStatus: false,
-  generateName: false,
+  generateName: getCustomUser() === 'true' || false,
 };
 
 const slice = createSlice({
@@ -34,6 +39,7 @@ const slice = createSlice({
     },
     setGenerateName(state, action: PayloadAction<boolean>) {
       state.generateName = action.payload;
+      saveCustomUser(action.payload);
     },
   },
 });
