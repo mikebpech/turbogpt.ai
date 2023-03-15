@@ -129,6 +129,7 @@ export const MessageComponent = ({
       <BubbleWrap>
         {role === 'assistant' && customName && (
           <Badge
+            size={isMobile ? 'xs' : 'sm'}
             style={{ marginLeft: '10px', marginBottom: '5px' }}
             color="red"
           >
@@ -162,7 +163,7 @@ const Text = styled.p<any>`
   color: white;
   background-color: ${props => props.theme.chatBubbleSystem};
   padding: 10px;
-  font-size: 1rem;
+  font-size: ${props => (props.isMobile ? '0.7rem' : '1rem')};
   border-radius: 0.5rem;
 
   .prism {
