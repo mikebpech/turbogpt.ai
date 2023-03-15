@@ -28,8 +28,10 @@ export function ChatBubbles({
   const [avatar, setAvatar] = React.useState('');
 
   const scrollToBottom = () => {
-    // @ts-ignore
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (apiKeyValid) {
+      // @ts-ignore
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {

@@ -163,7 +163,7 @@ const Text = styled.p<any>`
   color: white;
   background-color: ${props => props.theme.chatBubbleSystem};
   padding: 10px;
-  font-size: ${props => (props.isMobile ? '0.7rem' : '1rem')};
+  font-size: 1rem;
   border-radius: 0.5rem;
 
   .prism {

@@ -78,7 +78,7 @@ export const Model = styled.p`
 `;
 
 const Wrapper = styled.main<any>`
-  height: 100%;
+  height: ${props => (props.isMobile ? '100%' : '100%')};
   display: flex;
   width: ${props => (props.isMobile ? '100%' : '60vw')};
   flex-direction: column;
