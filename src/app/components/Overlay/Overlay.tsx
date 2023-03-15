@@ -123,6 +123,7 @@ const Wrapper = styled.nav<any>`
 const Inner = styled.div`
   max-height: 100%;
   overflow-y: auto;
+  overscroll-behavior: contain;
   border-radius: 0.5rem;
   width: 100%;
   padding: 20px;
