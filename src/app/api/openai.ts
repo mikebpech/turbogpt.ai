@@ -18,7 +18,6 @@ export const checkOpenAiKeyValid = (key: string) =>
   });
 
 const fetchMessage = (key: string, messages: Message[]) => {
-  console.log('messages', messages);
   return fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
