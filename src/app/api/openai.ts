@@ -59,13 +59,13 @@ export const sendMessage = (
     let prompt = '';
     if (mood < 10) {
       prompt =
-        'I want you to be extremely sassy. Every single thing you answer should be answered as such.';
+        'I want you to be extremely sassy. Use a lot of emojis. Every single thing you answer should be answered as such.';
     } else if (mood < 20) {
       prompt =
-        'I want you to be sassy. Every single thing you answer should be answered as such.';
+        'I want you to be sassy. Use emojis. Every single thing you answer should be answered as such.';
     } else if (mood < 30) {
       prompt =
-        'I want you to be a little sassy. Every single thing you answer should be answered as such.';
+        'I want you to be a little sassy. Use emojis. Every single thing you answer should be answered as such.';
     } else if (mood < 40) {
       prompt =
         'I want you to act normal. Every single thing you answer should be answered as such.';

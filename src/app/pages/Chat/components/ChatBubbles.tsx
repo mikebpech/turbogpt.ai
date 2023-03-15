@@ -1,10 +1,15 @@
+import { characterOptions } from 'app/api/characters';
 import { Link } from 'app/components/Link';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Message } from 'utils/types/injector-typings';
-import { getOpenAiKeyStatus, getGenerateName } from '../slice/selectors';
+import {
+  getOpenAiKeyStatus,
+  getGenerateName,
+  getCharacter,
+} from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
 import { MessageComponent } from './MessageComponent';
 
@@ -18,6 +23,7 @@ export function ChatBubbles({
   const messagesEndRef = useRef(null);
   const apiKeyValid = useSelector(getOpenAiKeyStatus);
   const useCustomName = useSelector(getGenerateName);
+  const selectedCharacter = useSelector(getCharacter);
   const [customName, setCustomName] = React.useState('');
   const [avatar, setAvatar] = React.useState('');
 
@@ -35,8 +41,16 @@ export function ChatBubbles({
           setCustomName(fullName);
           setAvatar(`https://i.pravatar.cc/150?u=${fullName}`);
         });
+    } else {
+      if (selectedCharacter !== characterOptions[0]) {
+        setCustomName(selectedCharacter);
+      } else {
+        setCustomName('');
+      }
+
+      setAvatar('');
     }
-  }, [useCustomName]);
+  }, [useCustomName, selectedCharacter]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -58,7 +72,10 @@ export function ChatBubbles({
                 role="assistant"
                 message={
                   <span>
-                    <StyledLink target="_blank" href="#">
+                    <StyledLink
+                      target="_blank"
+                      href="https://platform.openai.com/account/api-keys"
+                    >
                       Please add a valid OpenAI API key in the menu. Get yours
                       here! You will need to create an account, by the way.
                     </StyledLink>

@@ -93,7 +93,18 @@ export function APIKey() {
         variant="filled"
         icon={generateIcon()}
         label="OpenAI API Key"
-        description="We never save your API key. It is only used to communicate with OpenAI's servers."
+        description={
+          <>
+            We never save your API key. It is only used to communicate with
+            OpenAI's servers.{' '}
+            <Link
+              target="_blank"
+              href="https://platform.openai.com/account/api-keys"
+            >
+              get it here!
+            </Link>
+          </>
+        }
       />
     </Wrapper>
   );
@@ -102,4 +113,13 @@ export function APIKey() {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Link = styled.a`
+  color: ${props => props.theme.text};
+  text-decoration: underline;
+
+  &:visited {
+    color: ${props => props.theme.text};
+  }
 `;

@@ -118,7 +118,7 @@ export const MessageComponent = ({
           width: '44px',
           height: '44px',
           minWidth: '44px',
-          marginTop: useCustomName && role === 'assistant' ? '25px' : 0,
+          marginTop: customName && role === 'assistant' ? '25px' : 0,
         }}
         src={role === 'assistant' ? avatar : null}
         radius="0.5rem"
@@ -127,7 +127,7 @@ export const MessageComponent = ({
       </Avatar>
 
       <BubbleWrap>
-        {role === 'assistant' && useCustomName && (
+        {role === 'assistant' && customName && (
           <Badge
             style={{ marginLeft: '10px', marginBottom: '5px' }}
             color="red"

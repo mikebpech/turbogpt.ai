@@ -14,16 +14,13 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { ChatPage } from './pages/Chat/Loadable';
-import { useTranslation } from 'react-i18next';
 
 export function App() {
-  const { i18n } = useTranslation();
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - TurboGPT"
+        titleTemplate="TurboGPT | A better UI for ChatGPT"
         defaultTitle="TurboGPT"
-        htmlAttributes={{ lang: i18n.language }}
       >
         <meta name="description" content="TurboGPT" />
       </Helmet>
