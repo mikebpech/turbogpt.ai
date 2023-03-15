@@ -114,7 +114,7 @@ const Footer = styled.footer`
 const Wrapper = styled.nav<any>`
   position: relative;
   position: fixed;
-  top: ${props => (props.isOpened ? StyleConstants.NAV_BAR_HEIGHT : '105vh')};
+  top: ${props => (props.isOpened ? StyleConstants.NAV_BAR_HEIGHT : '110vh')};
   transition: all 0.3s ease-in-out;
   left: 0;
   width: 100vw;

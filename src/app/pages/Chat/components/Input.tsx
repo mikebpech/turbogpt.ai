@@ -58,7 +58,6 @@ export function Input({
           style={{ width: '100%' }}
           placeholder="Type your message here"
         />
-
         <Button
           disabled={!apiKeyStatus || disabled}
           loading={loading}
@@ -69,7 +68,7 @@ export function Input({
           variant="light"
           color="indigo"
         >
-          Submit
+          Send
         </Button>
       </InputWrapper>
     </Wrapper>
@@ -98,4 +97,5 @@ const InputWrapper = styled.form<any>`
   margin: 0 auto;
   display: flex;
   align-items: center;
+  z-index: 50;
 `;
