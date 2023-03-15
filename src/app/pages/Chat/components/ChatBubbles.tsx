@@ -77,7 +77,7 @@ const StyledLink = styled.a`
 const Wrapper = styled.div`
   width: 100%;
   z-index: 5;
-  min-height: 70vh;
+  min-height: 65vh;
   overflow-y: auto;
   height: max-content;
   padding: 10px;
