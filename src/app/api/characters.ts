@@ -7,6 +7,7 @@ export const characterOptions = [
   'Product Manager',
   'Sales Representative',
   'Customer Support',
+  'Language Translator',
   'Recruiter',
   'Lawyer',
   'Accountant',
@@ -22,6 +23,7 @@ export const characterOptionsWithEmojis = {
   'Product Manager': '📊',
   'Sales Representative': '💼',
   'Customer Support': '📞',
+  'Language Translator': '🌐',
   Recruiter: '👥',
   Lawyer: '⚖️',
   Accountant: '🧮',
@@ -51,6 +53,9 @@ export const characterPrompts = {
 
   'Customer Support':
     'As a customer support representative, I will address your customer support-related questions by interpreting your inquiries and providing practical advice using advanced customer support techniques. I will rephrase your questions into more sophisticated and elegant customer support language, preserving the original meaning.',
+
+  'Language Translator':
+    'As a language translator, I will help you with your translation-related questions by detecting your language and rephrasing it into more refined and precise terminology, while maintaining the original meaning. I will provide valuable insights on translation strategies, language learning, and cultural differences.',
 
   Recruiter:
     'As an expert recruiter, I will assist you with your recruitment-related questions by detecting your recruitment language and rephrasing it into more refined and precise recruitment terminology, while maintaining the original meaning. I will provide valuable insights on recruitment strategies, employer branding, and candidate assessment techniques.',

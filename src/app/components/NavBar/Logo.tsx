@@ -3,9 +3,11 @@ import styled from 'styled-components/macro';
 import ConfettiExplosion from 'react-confetti-explosion';
 import { Alert } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
+import { useMediaQuery } from 'react-responsive';
 
 export function Logo() {
   const [isHovering, setIsHovering] = React.useState(false);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   // This will make a confetti explosion when the word explosion is hovered
   React.useEffect(() => {
@@ -17,10 +19,12 @@ export function Logo() {
   return (
     <Wrapper>
       <Title>🧨 TurboGPT</Title>
-      <Description>
-        chatgpt but{' '}
-        <span onMouseEnter={() => setIsHovering(true)}>explosive</span>
-      </Description>
+      {!isTabletOrMobile && (
+        <Description>
+          chatgpt but{' '}
+          <span onMouseEnter={() => setIsHovering(true)}>explosive</span>
+        </Description>
+      )}
       {isHovering && (
         <ConfettiExplosion
           colors={['#ff0000']}
@@ -43,6 +47,7 @@ const Title = styled.div`
   color: ${p => p.theme.text};
   font-weight: bold;
   margin-right: 1rem;
+  white-space: nowrap;
 `;
 
 const Description = styled.div`

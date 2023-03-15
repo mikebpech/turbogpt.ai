@@ -5,8 +5,11 @@ import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Textbox } from './Textbox';
 import { LeftSidebar } from './components/LeftSidebar';
+import { useMediaQuery } from 'react-responsive';
 
 export function ChatPage() {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+
   return (
     <>
       <Helmet>
@@ -15,8 +18,8 @@ export function ChatPage() {
       </Helmet>
       <NavBar />
       <Body>
-        <LeftSidebar />
-        <Wrapper>
+        {!isTabletOrMobile && <LeftSidebar />}
+        <Wrapper isMobile={isTabletOrMobile}>
           <Title>🧨 TurboGPT</Title>
           <Textbox />
         </Wrapper>
@@ -32,13 +35,14 @@ const Body = styled.div`
   height: 100%;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<any>`
   height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 320px;
   position: relative;
+  width: ${props => props.isMobile && '100%'};
 `;
 
 const Title = styled.div`

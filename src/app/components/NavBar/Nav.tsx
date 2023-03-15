@@ -1,10 +1,44 @@
 import * as React from 'react';
-import { IconHeartFilled } from '@tabler/icons-react';
+import {
+  IconHeartFilled,
+  IconMenu,
+  IconMenu2,
+  IconStack3,
+  IconX,
+} from '@tabler/icons-react';
 import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
 import styled from 'styled-components/macro';
 import { ReactComponent as TwitterIcon } from './assets/twitter.svg';
+import { useMediaQuery } from 'react-responsive';
+import { Drawer } from '@mantine/core';
 
 export function Nav() {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  if (isTabletOrMobile) {
+    return (
+      <MobileWrapper>
+        {menuOpen ? (
+          <IconX onClick={toggleMenu} size={24} />
+        ) : (
+          <IconMenu2 onClick={toggleMenu} size={24} />
+        )}
+        <Drawer
+          opened={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          title="Authentication"
+        >
+          hi
+        </Drawer>
+      </MobileWrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <ThemeSwitch />
@@ -28,6 +62,8 @@ export function Nav() {
     </Wrapper>
   );
 }
+
+const MobileWrapper = styled.nav``;
 
 const Wrapper = styled.nav`
   display: flex;

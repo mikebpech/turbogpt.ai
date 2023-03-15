@@ -9,6 +9,7 @@ import { sendMessage } from '../../api/openai';
 import { useSelector } from 'react-redux';
 import { getCharacter, getMood, getOpenAiApiKey } from './slice/selectors';
 import { characterOptions } from 'app/api/characters';
+import { useMediaQuery } from 'react-responsive';
 
 const defaultMessages = [
   { role: 'assistant', content: 'Hello there! Start by typing a message!' },
@@ -19,6 +20,8 @@ export function Textbox() {
   const apiKey = useSelector(getOpenAiApiKey);
   const characterSelected = useSelector(getCharacter);
   const moodSelected = useSelector(getMood);
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const { isLoading, isRefetching, refetch } = useQuery(
     'chat',
@@ -52,7 +55,7 @@ export function Textbox() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper isMobile={isTabletOrMobile}>
       <P>
         Model: <b>turbo-gpt-3.5</b>
       </P>
@@ -67,11 +70,11 @@ export function Textbox() {
   );
 }
 
-const Wrapper = styled.main`
+const Wrapper = styled.main<any>`
   margin-top: 5vh;
   height: 80vh;
   display: flex;
-  width: 60vw;
+  width: ${props => (props.isMobile ? '100%' : '60vw')};
   flex-direction: column;
   align-items: center;
   min-height: 320px;

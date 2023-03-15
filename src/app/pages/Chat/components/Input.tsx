@@ -3,6 +3,7 @@ import { Button, TextInput as MantineInput } from '@mantine/core';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getOpenAiKeyStatus } from '../slice/selectors';
+import { useMediaQuery } from 'react-responsive';
 
 export function Input({
   addMessage,
@@ -11,6 +12,7 @@ export function Input({
 }) {
   const [message, setMessage] = React.useState<string>('');
   const apiKeyStatus = useSelector(getOpenAiKeyStatus);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,11 +22,14 @@ export function Input({
 
   return (
     <Wrapper>
-      <InputWrapper onSubmit={e => handleSubmitForm(e)}>
+      <InputWrapper
+        isMobile={isTabletOrMobile}
+        onSubmit={e => handleSubmitForm(e)}
+      >
         <MantineInput
           disabled={!apiKeyStatus}
           radius="md"
-          size="lg"
+          size={isTabletOrMobile ? 'md' : 'lg'}
           onChange={e => setMessage(e.target.value)}
           value={message}
           style={{ width: '100%' }}
@@ -34,7 +39,7 @@ export function Input({
         <Button
           disabled={!apiKeyStatus}
           type="submit"
-          size="lg"
+          size={isTabletOrMobile ? 'md' : 'lg'}
           left={5}
           radius="md"
           variant="light"
@@ -56,9 +61,9 @@ const Wrapper = styled.div`
   align-items: flex-end;
 `;
 
-const InputWrapper = styled.form`
+const InputWrapper = styled.form<any>`
   width: 100%;
-  max-width: 80vw;
+  max-width: ${props => (props.isMobile ? '90%' : '80vw')};
   display: flex;
-  align-items: center; ;
+  align-items: center;
 `;
