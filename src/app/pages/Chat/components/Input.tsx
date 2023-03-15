@@ -83,7 +83,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: flex-end;
   position: relative;
-  height: fit-content;
   z-index: 100;
 `;
 
