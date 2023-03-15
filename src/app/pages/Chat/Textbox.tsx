@@ -57,10 +57,7 @@ export function Textbox() {
 
   return (
     <Wrapper isMobile={isTabletOrMobile}>
-      <Model>
-        Model: <b>turbo-gpt-3.5</b>
-      </Model>
-      {characterSelected !== characterOptions[0] && (
+      {characterSelected !== characterOptions[0] && !isTabletOrMobile && (
         <Character>
           You are now speaking to a virtual {characterSelected}. Cool eh?
         </Character>
@@ -93,5 +90,5 @@ const Wrapper = styled.main<any>`
 
 const Character = styled.div`
   color: ${props => props.theme.textSecondary};
-  padding-bottom: 5px;
+  padding: 10px 0;
 `;

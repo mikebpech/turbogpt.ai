@@ -3,11 +3,18 @@ import styled from 'styled-components/macro';
 import { MessageComponent } from './MessageComponent';
 import { Loader } from '@mantine/core';
 
-export function EllipsisAnimation({ visible = false }: { visible: boolean }) {
+export function EllipsisAnimation({
+  visible = false,
+  avatar = '',
+}: {
+  visible: boolean;
+  avatar?: string;
+}) {
   return (
     <MessageComponent
       visible={visible}
       role="assistant"
+      avatar={avatar}
       message={<Loader variant="dots" color="white" />}
     />
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from '@mantine/core';
+import { Avatar, Badge } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
@@ -13,12 +13,18 @@ interface MessageComponentProps {
   role?: string;
   message: string | React.ReactNode;
   visible?: boolean;
+  customName?: string;
+  useCustomName?: boolean;
+  avatar?: string;
 }
 
 export const MessageComponent = ({
   role = 'user',
   message,
   visible = true,
+  customName,
+  useCustomName = false,
+  avatar,
 }: MessageComponentProps) => {
   const avatarProps = {
     src: null,
@@ -103,12 +109,25 @@ export const MessageComponent = ({
           width: '44px',
           height: '44px',
           minWidth: '44px',
+          marginTop: useCustomName && role === 'assistant' ? '25px' : 0,
         }}
+        src={role === 'assistant' ? avatar : null}
         radius="0.5rem"
       >
         {generateAvatarText(role)}
       </Avatar>
-      <Text>{detectFormatting(message)}</Text>
+
+      <BubbleWrap>
+        {role === 'assistant' && useCustomName && (
+          <Badge
+            style={{ marginLeft: '10px', marginBottom: '5px' }}
+            color="red"
+          >
+            {customName}
+          </Badge>
+        )}
+        <Text>{detectFormatting(message)}</Text>
+      </BubbleWrap>
     </Message>
   );
 };
@@ -118,6 +137,8 @@ const Message = styled.div`
   align-items: flex-start;
   margin-top: 15px;
 `;
+
+const BubbleWrap = styled.div``;
 
 const Text = styled.p`
   margin: 0 10px;

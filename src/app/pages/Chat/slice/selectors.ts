@@ -22,3 +22,7 @@ export const getOpenAiKeyStatus = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.openAiKeyStatus,
 );
+export const getGenerateName = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.generateName,
+);

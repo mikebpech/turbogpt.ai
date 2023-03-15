@@ -3,12 +3,15 @@ import { Checkbox, NativeSelect } from '@mantine/core';
 import styled from 'styled-components/macro';
 import debounce from 'lodash/debounce';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCharacter } from '../slice/selectors';
+import { getCharacter, getGenerateName } from '../slice/selectors';
 import { useChatOptionsSlice } from '../slice';
 import { characterOptions } from 'app/api/characters';
 
 function SelectCharacter() {
   const [character, setCharacter] = React.useState(useSelector(getCharacter));
+  const [useCustomName, setUseCustomName] = React.useState(
+    useSelector(getGenerateName),
+  );
   const { actions } = useChatOptionsSlice();
   const dispatch = useDispatch();
 
@@ -18,6 +21,18 @@ function SelectCharacter() {
     }, 250),
     [dispatch],
   );
+
+  const debouncedUseCustomName = useCallback(
+    debounce(checked => {
+      dispatch(actions.setGenerateName(checked));
+      setUseCustomName(checked);
+    }, 250),
+    [dispatch],
+  );
+
+  useEffect(() => {
+    debouncedDispatch(character);
+  }, [character, debouncedDispatch]);
 
   useEffect(() => {
     debouncedDispatch(character);
@@ -35,6 +50,8 @@ function SelectCharacter() {
       />
       <Checkbox
         color="red"
+        checked={useCustomName}
+        onChange={event => debouncedUseCustomName(event.currentTarget.checked)}
         className="checkbox"
         label="Spare me a random name?"
       />

@@ -4,4 +4,5 @@ export interface ChatOptionsState {
   chatMood: number;
   openAiApiKey: string;
   openAiKeyStatus: boolean;
+  generateName: boolean;
 }

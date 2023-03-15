@@ -11,6 +11,7 @@ export const initialState: ChatOptionsState = {
   chatMood: 50,
   openAiApiKey: getOpenAiKeyFromStorage() || '',
   openAiKeyStatus: false,
+  generateName: false,
 };
 
 const slice = createSlice({
@@ -30,6 +31,9 @@ const slice = createSlice({
     },
     setOpenAiKeyStatus(state, action: PayloadAction<boolean>) {
       state.openAiKeyStatus = action.payload;
+    },
+    setGenerateName(state, action: PayloadAction<boolean>) {
+      state.generateName = action.payload;
     },
   },
 });

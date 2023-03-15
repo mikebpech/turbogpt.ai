@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Message } from 'utils/types/injector-typings';
-import { getOpenAiKeyStatus } from '../slice/selectors';
+import { getOpenAiKeyStatus, getGenerateName } from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
 import { MessageComponent } from './MessageComponent';
 
@@ -17,11 +17,26 @@ export function ChatBubbles({
 }) {
   const messagesEndRef = useRef(null);
   const apiKeyValid = useSelector(getOpenAiKeyStatus);
+  const useCustomName = useSelector(getGenerateName);
+  const [customName, setCustomName] = React.useState('');
+  const [avatar, setAvatar] = React.useState('');
 
   const scrollToBottom = () => {
     // @ts-ignore
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    if (useCustomName) {
+      fetch('https://random-data-api.com/api/v2/users?size=1&is_xml=true')
+        .then(response => response.json())
+        .then(data => {
+          const fullName = data.first_name + ' ' + data.last_name;
+          setCustomName(fullName);
+          setAvatar(`https://i.pravatar.cc/150?u=${fullName}`);
+        });
+    }
+  }, [useCustomName]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,6 +52,9 @@ export function ChatBubbles({
           return (
             <>
               <MessageComponent
+                customName={customName}
+                avatar={avatar}
+                useCustomName={useCustomName}
                 role="assistant"
                 message={
                   <span>
@@ -49,6 +67,9 @@ export function ChatBubbles({
                 }
               />
               <MessageComponent
+                customName={customName}
+                avatar={avatar}
+                useCustomName={useCustomName}
                 role="assistant"
                 message="We don't store your API key. It's only used to generate the chat messages and saved locally in your browser :)"
               />
@@ -57,6 +78,9 @@ export function ChatBubbles({
 
         return (
           <MessageComponent
+            customName={customName}
+            avatar={avatar}
+            useCustomName={useCustomName}
             key={index}
             role={message.role}
             message={message.content as string}
@@ -67,7 +91,7 @@ export function ChatBubbles({
         style={{ height: '8px', marginTop: 0, paddingBottom: '5px' }}
         ref={messagesEndRef}
       />
-      <EllipsisAnimation visible={isTyping} />
+      <EllipsisAnimation avatar={avatar} visible={isTyping} />
     </Wrapper>
   );
 }

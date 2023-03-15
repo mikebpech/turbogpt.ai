@@ -26,7 +26,7 @@ export function LeftSidebar() {
 const Wrapper = styled.div`
   width: 30vw;
   margin-right: 10px;
-  padding: 5vh 0;
+  padding: 2vh 0;
   display: flex;
   justify-content: center;
 `;
