@@ -45,3 +45,16 @@ export function getConversationsFromStorage(): Message[][] | null {
       ) as Message[][]) || null
     : null;
 }
+
+export function getMessagesInLocalStorage(): Message[] | null {
+  const convos = window.localStorage
+    ? (JSON.parse(
+        localStorage.getItem('conversations') as string,
+      ) as Message[][]) || null
+    : null;
+  if (convos) {
+    return convos[0];
+  }
+
+  return null;
+}

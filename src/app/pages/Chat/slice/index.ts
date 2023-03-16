@@ -11,6 +11,7 @@ import {
   saveOpenAiKey,
   getConversationsFromStorage,
   saveConversationsToStorage,
+  getMessagesInLocalStorage,
 } from '../utils';
 
 export const initialState: ChatOptionsState = {
@@ -21,7 +22,7 @@ export const initialState: ChatOptionsState = {
   apiPrevKey: '',
   generateName: getCustomUser() === 'true' || false,
   verifyingApiKey: false,
-  messages: [],
+  messages: getMessagesInLocalStorage() || [],
   conversations: getConversationsFromStorage() || [],
   selectedConversation: 0,
 };

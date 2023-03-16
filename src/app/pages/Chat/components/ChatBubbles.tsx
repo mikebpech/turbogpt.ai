@@ -64,61 +64,59 @@ export function ChatBubbles({
 
   return (
     <Wrapper>
-      {messages.map((message, index) => {
-        if (message.role === 'system') return null;
-        if (!apiKeyValid && !verifyingKey)
-          return (
-            <>
-              <MessageComponent
-                customName={customName}
-                avatar={avatar}
-                useCustomName={useCustomName}
-                role="assistant"
-                message={
-                  <span>
-                    <StyledLink
-                      target="_blank"
-                      href="https://platform.openai.com/account/api-keys"
-                    >
-                      Please add a valid OpenAI API key in the menu. Get yours
-                      here! You will need to create an account, by the way.
-                    </StyledLink>
-                  </span>
-                }
-              />
-              <MessageComponent
-                customName={customName}
-                avatar={avatar}
-                useCustomName={useCustomName}
-                role="assistant"
-                message="We don't store your API key. It's only used to generate the chat messages and saved locally in your browser :)"
-              />
-            </>
-          );
+      {verifyingKey ? (
+        <MessageComponent
+          customName={customName}
+          avatar={avatar}
+          useCustomName={useCustomName}
+          role="assistant"
+          message="Verifying API key..."
+        />
+      ) : (
+        messages.map((message, index) => {
+          if (message.role === 'system') return null;
+          if (!apiKeyValid && !verifyingKey)
+            return (
+              <>
+                <MessageComponent
+                  customName={customName}
+                  avatar={avatar}
+                  useCustomName={useCustomName}
+                  role="assistant"
+                  message={
+                    <span>
+                      <StyledLink
+                        target="_blank"
+                        href="https://platform.openai.com/account/api-keys"
+                      >
+                        Please add a valid OpenAI API key in the menu. Get yours
+                        here! You will need to create an account, by the way.
+                      </StyledLink>
+                    </span>
+                  }
+                />
+                <MessageComponent
+                  customName={customName}
+                  avatar={avatar}
+                  useCustomName={useCustomName}
+                  role="assistant"
+                  message="We don't store your API key. It's only used to generate the chat messages and saved locally in your browser :)"
+                />
+              </>
+            );
 
-        if (verifyingKey) {
           return (
             <MessageComponent
               customName={customName}
               avatar={avatar}
               useCustomName={useCustomName}
-              role="assistant"
-              message="Verifying API key..."
+              key={index}
+              role={message.role}
+              message={message.content as string}
             />
           );
-        }
-
-        return (
-          <MessageComponent
-            customName={customName}
-            avatar={avatar}
-            useCustomName={useCustomName}
-            key={index}
-            role={message.role}
-            message={message.content as string}
-          />
-        );
-      })}
+        })
+      )}
       <div
         style={{ height: '8px', marginTop: 0, paddingBottom: '5px' }}
         ref={messagesEndRef}

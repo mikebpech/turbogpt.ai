@@ -95,3 +95,27 @@ export const sendMessage = (
 
   return fetchMessage(key, copy);
 };
+
+export const generateImage = (
+  key: string,
+  prompt: string,
+  n: number = 1,
+  size: string = '1024x1024',
+  response_format: string = 'url',
+) => {
+  return fetch('https://api.openai.com/v1/images/generations', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      referrer: 'https://turbogpt.ai/',
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      n: n,
+      size: size,
+      response_format: response_format,
+    }),
+  });
+};
