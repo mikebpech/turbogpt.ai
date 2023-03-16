@@ -49,10 +49,6 @@ export function Textbox() {
     },
   );
 
-  useEffect(() => {
-    dispatch(actions.setMessages(defaultMessages));
-  }, [characterSelected]);
-
   const addMessage = (message: string) => {
     dispatch(
       actions.setMessages([...messages, { role: 'user', content: message }]),

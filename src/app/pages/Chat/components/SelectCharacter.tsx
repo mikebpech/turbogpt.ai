@@ -45,7 +45,7 @@ function SelectCharacter() {
         onChange={event => setCharacter(event.currentTarget.value)}
         data={characterOptions}
         label="Select your character"
-        description="This will give your AI a personality and cater the conversation to your preferences. Note: This will clear your current conversation."
+        description="This will give your AI a personality and cater the conversation to your preferences."
         variant="default"
       />
       <Checkbox
