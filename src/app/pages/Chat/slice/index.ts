@@ -79,6 +79,8 @@ const slice = createSlice({
       state.selectedConversation = 0;
       if (state.conversations[0].length) {
         state.messages = state.conversations[0];
+      } else {
+        state.messages = [];
       }
       saveConversationsToStorage(state.conversations);
     },
