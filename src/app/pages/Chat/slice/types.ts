@@ -12,4 +12,7 @@ export interface ChatOptionsState {
   messages: Message[];
   conversations: Message[][];
   selectedConversation: number;
+  model: ApiModel;
 }
+
+export type ApiModel = 'gpt-3.5-turbo' | 'gpt-4';

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getVerifyingApiKey } from '../slice/selectors';
 import { APIKey } from './APIKey';
-import { ChatHistory } from './ChatHistory';
+import { PickModel } from './PickModel';
 import { Conversations } from './Conversations';
 import { MoodSlider } from './MoodSlider';
 import SelectCharacter from './SelectCharacter';
@@ -44,7 +44,7 @@ export function LeftSidebar() {
             <Divider my="md" variant="dashed" />
             <MoodSlider />
             <Divider my="md" variant="dashed" />
-            <ChatHistory />
+            <PickModel />
           </>
         )}
         {selectedTab === 1 && (

@@ -46,3 +46,7 @@ export const getSelectedConversation = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.selectedConversation,
 );
+export const getModel = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.model,
+);

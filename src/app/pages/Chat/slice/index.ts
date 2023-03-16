@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import {} from './types';
+import { ApiModel } from './types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { chatOptionsSaga } from './saga';
@@ -12,6 +12,8 @@ import {
   getConversationsFromStorage,
   saveConversationsToStorage,
   getMessagesInLocalStorage,
+  saveModelToStorage,
+  getModelFromStorage,
 } from '../utils';
 
 export const initialState: ChatOptionsState = {
@@ -25,6 +27,7 @@ export const initialState: ChatOptionsState = {
   messages: getMessagesInLocalStorage() || [],
   conversations: getConversationsFromStorage() || [],
   selectedConversation: 0,
+  model: getModelFromStorage() || 'gpt-3.5-turbo',
 };
 
 const slice = createSlice({
@@ -79,6 +82,10 @@ const slice = createSlice({
     setSelectedConversation(state, action: PayloadAction<number>) {
       state.selectedConversation = action.payload;
       state.messages = state.conversations[action.payload];
+    },
+    setModel(state, action: PayloadAction<ApiModel>) {
+      state.model = action.payload;
+      saveModelToStorage(action.payload);
     },
   },
 });

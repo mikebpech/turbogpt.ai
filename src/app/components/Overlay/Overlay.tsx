@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, SegmentedControl } from '@mantine/core';
 import { APIKey } from 'app/pages/Chat/components/APIKey';
-import { ChatHistory } from 'app/pages/Chat/components/ChatHistory';
+import { PickModel } from 'app/pages/Chat/components/PickModel';
 import { MoodSlider } from 'app/pages/Chat/components/MoodSlider';
 import SelectCharacter from 'app/pages/Chat/components/SelectCharacter';
 import { ThemeSwitch } from 'app/pages/HomePage/Features/ThemeSwitch';
@@ -48,7 +48,7 @@ export function Overlay({ isOpened = false }: { isOpened: boolean }) {
             <Divider my="md" variant="dashed" />
             <MoodSlider />
             <Divider my="md" variant="dashed" />
-            <ChatHistory />
+            <PickModel />
           </>
         )}
         {selectedTab === 1 && (

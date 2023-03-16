@@ -8,12 +8,13 @@ import {
   getOpenAiApiKey,
   getOpenAiKeyStatus,
   getApiPrevKey,
+  getModel,
 } from '../slice/selectors';
 import { IconCheck, IconLock, IconX } from '@tabler/icons-react';
 import { useChatOptionsSlice } from '../slice';
 import { checkOpenAiKeyValid } from 'app/api/openai';
 import { useQuery } from 'react-query';
-import { getOpenAiKeyFromStorage, saveOpenAiKey } from '../utils';
+import { saveOpenAiKey } from '../utils';
 
 export function APIKey() {
   const [apiKey, setApiKey] = React.useState<string>(
@@ -24,13 +25,25 @@ export function APIKey() {
   const { actions } = useChatOptionsSlice();
   const apiKeyStatus = useSelector(getOpenAiKeyStatus);
   const apiKeyPrev = useSelector(getApiPrevKey);
+  const model = useSelector(getModel);
 
   const { isLoading, isFetching, data, isError, refetch } = useQuery(
     'apiKey',
-    () => checkOpenAiKeyValid(apiKey),
+    () => checkOpenAiKeyValid(apiKey, model),
     {
       enabled: false,
       refetchOnMount: false,
+      onSettled: resp => {
+        console.log('resp', resp);
+        if (resp?.status === 404) {
+          dispatch(actions.setOpenAiKeyStatus(false));
+          dispatch(actions.setVerifyingApiKey(false));
+          setError(`Your API Key doesn't have access to ${model} model`);
+        } else if (!resp?.ok) {
+          dispatch(actions.setVerifyingApiKey(false));
+          setError('Invalid API Key');
+        }
+      },
     },
   );
 
@@ -46,9 +59,7 @@ export function APIKey() {
   );
 
   useEffect(() => {
-    if (!data?.ok) {
-      setError('Invalid API Key');
-    } else {
+    if (data?.ok) {
       dispatch(actions.changeOpenAiApiKey(apiKey));
       dispatch(actions.setOpenAiKeyStatus(true));
       dispatch(actions.setApiKeyPrevKey(apiKey));
@@ -75,7 +86,7 @@ export function APIKey() {
         debouncedDispatch(apiKey);
       }
     }
-  }, [apiKey, debouncedDispatch, dispatch]);
+  }, [apiKey, debouncedDispatch, dispatch, model]);
 
   const generateIcon = () => {
     if (!apiKey) {

@@ -70,40 +70,38 @@ export function ChatBubbles({
           avatar={avatar}
           useCustomName={useCustomName}
           role="assistant"
-          message="Verifying API key..."
+          message="Please enter your API Key.."
         />
+      ) : !apiKeyValid && !verifyingKey ? (
+        <>
+          <MessageComponent
+            customName={customName}
+            avatar={avatar}
+            useCustomName={useCustomName}
+            role="assistant"
+            message={
+              <span>
+                <StyledLink
+                  target="_blank"
+                  href="https://platform.openai.com/account/api-keys"
+                >
+                  Please add a valid OpenAI API key in the menu. Get yours here!
+                  You will need to create an account, by the way.
+                </StyledLink>
+              </span>
+            }
+          />
+          <MessageComponent
+            customName={customName}
+            avatar={avatar}
+            useCustomName={useCustomName}
+            role="assistant"
+            message="We don't store your API key. It's only used to generate the chat messages and saved locally in your browser :)"
+          />
+        </>
       ) : (
         messages.map((message, index) => {
           if (message.role === 'system') return null;
-          if (!apiKeyValid && !verifyingKey)
-            return (
-              <>
-                <MessageComponent
-                  customName={customName}
-                  avatar={avatar}
-                  useCustomName={useCustomName}
-                  role="assistant"
-                  message={
-                    <span>
-                      <StyledLink
-                        target="_blank"
-                        href="https://platform.openai.com/account/api-keys"
-                      >
-                        Please add a valid OpenAI API key in the menu. Get yours
-                        here! You will need to create an account, by the way.
-                      </StyledLink>
-                    </span>
-                  }
-                />
-                <MessageComponent
-                  customName={customName}
-                  avatar={avatar}
-                  useCustomName={useCustomName}
-                  role="assistant"
-                  message="We don't store your API key. It's only used to generate the chat messages and saved locally in your browser :)"
-                />
-              </>
-            );
 
           return (
             <MessageComponent

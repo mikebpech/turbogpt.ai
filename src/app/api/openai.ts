@@ -1,8 +1,9 @@
+import { ApiModel } from 'app/pages/Chat/slice/types';
 import { Message } from 'utils/types/injector-typings';
 import { characterPrompts } from './characters';
 
 // Make an API Call to check if the key is valid on OpenAI
-export const checkOpenAiKeyValid = (key: string) =>
+export const checkOpenAiKeyValid = (key: string, model: string) =>
   fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -12,12 +13,12 @@ export const checkOpenAiKeyValid = (key: string) =>
       referrer: 'https://turbogpt.ai/',
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
+      model: model || 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: 'hello' }],
     }),
   });
 
-const fetchMessage = (key: string, messages: Message[]) => {
+const fetchMessage = (key: string, messages: Message[], model: ApiModel) => {
   return fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -27,7 +28,7 @@ const fetchMessage = (key: string, messages: Message[]) => {
       referrer: 'https://turbogpt.ai/',
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
+      model: model || 'gpt-3.5-turbo',
       messages: messages,
     }),
   });
@@ -38,12 +39,20 @@ export const sendMessage = (
   messages: Message[],
   mood: number,
   characterSelected: string,
+  model: ApiModel,
 ) => {
   let copy = [...messages];
 
-  // Only keep the last 8 messages to prevent the API from timing out
-  if (copy.length > 8) {
-    copy = copy.slice(copy.length - 8, copy.length);
+  if (model === 'gpt-4') {
+    if (copy.length > 12) {
+      copy = copy.slice(copy.length - 12, copy.length);
+    }
+  }
+
+  if (model === 'gpt-3.5-turbo') {
+    if (copy.length > 8) {
+      copy = copy.slice(copy.length - 8, copy.length);
+    }
   }
 
   if (characterPrompts[characterSelected]) {
@@ -93,7 +102,7 @@ export const sendMessage = (
     ];
   }
 
-  return fetchMessage(key, copy);
+  return fetchMessage(key, copy, model);
 };
 
 export const generateImage = (

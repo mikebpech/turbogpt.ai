@@ -1,4 +1,5 @@
 import { Message } from 'utils/types/injector-typings';
+import { ApiModel } from './slice/types';
 
 export function saveOpenAiKey(key: string) {
   if (key !== '') {
@@ -15,6 +16,16 @@ export function getOpenAiKeyFromStorage(): string | null {
 export function saveCustomUser(value: boolean) {
   window.localStorage &&
     localStorage.setItem('customUserName', value.toString());
+}
+
+export function getModelFromStorage(): ApiModel | null {
+  return window.localStorage
+    ? (localStorage.getItem('model') as ApiModel) || null
+    : null;
+}
+
+export function saveModelToStorage(model: ApiModel) {
+  window.localStorage && localStorage.setItem('model', model);
 }
 
 export function getCustomUser(): string | null {

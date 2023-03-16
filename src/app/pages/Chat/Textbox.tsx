@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getCharacter,
   getMessages,
+  getModel,
   getMood,
   getOpenAiApiKey,
 } from './slice/selectors';
@@ -24,6 +25,7 @@ export function Textbox() {
   const apiKey = useSelector(getOpenAiApiKey);
   const characterSelected = useSelector(getCharacter);
   const moodSelected = useSelector(getMood);
+  const modelSelected = useSelector(getModel);
   const { actions } = useChatOptionsSlice();
 
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ export function Textbox() {
         messages,
         moodSelected,
         characterSelected,
+        modelSelected,
       ).then(function (response) {
         return response.json();
       });

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, TextInput as MantineInput } from '@mantine/core';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getOpenAiKeyStatus } from '../slice/selectors';
+import { getOpenAiKeyStatus, getVerifyingApiKey } from '../slice/selectors';
 import { useMediaQuery } from 'react-responsive';
 
 export function Input({
@@ -15,6 +15,7 @@ export function Input({
   const [message, setMessage] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
   const apiKeyStatus = useSelector(getOpenAiKeyStatus);
+  const apiKeyVerifiying = useSelector(getVerifyingApiKey);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +51,7 @@ export function Input({
         onSubmit={e => handleSubmitForm(e)}
       >
         <MantineInput
-          disabled={!apiKeyStatus}
+          disabled={!apiKeyStatus || apiKeyVerifiying}
           radius="md"
           size={isTabletOrMobile ? 'md' : 'lg'}
           onChange={e => setMessage(e.target.value)}
@@ -59,7 +60,7 @@ export function Input({
           placeholder="Type your message here"
         />
         <Button
-          disabled={!apiKeyStatus || disabled}
+          disabled={!apiKeyStatus || disabled || apiKeyVerifiying}
           loading={loading}
           type="submit"
           size={isTabletOrMobile ? 'md' : 'lg'}
