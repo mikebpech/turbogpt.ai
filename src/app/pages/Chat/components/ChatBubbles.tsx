@@ -10,6 +10,7 @@ import {
   getGenerateName,
   getCharacter,
   getVerifyingApiKey,
+  getMessages,
 } from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
 import { MessageComponent } from './MessageComponent';
@@ -35,6 +36,13 @@ export function ChatBubbles({
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      // @ts-ignore
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  }, [apiKeyValid]);
 
   useEffect(() => {
     if (useCustomName) {
@@ -115,11 +123,11 @@ export function ChatBubbles({
           );
         })
       )}
+      <EllipsisAnimation avatar={avatar} visible={isTyping} />
       <div
-        style={{ height: '8px', marginTop: 0, paddingBottom: '5px' }}
+        style={{ height: '8px', marginTop: 0, paddingBottom: '4px' }}
         ref={messagesEndRef}
       />
-      <EllipsisAnimation avatar={avatar} visible={isTyping} />
     </Wrapper>
   );
 }

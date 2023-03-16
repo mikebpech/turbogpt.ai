@@ -13,6 +13,7 @@ export function EllipsisAnimation({
   return (
     <MessageComponent
       visible={visible}
+      loader={true}
       role="assistant"
       avatar={avatar}
       message={<Loader variant="dots" color="white" />}

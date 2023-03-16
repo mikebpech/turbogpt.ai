@@ -10,6 +10,7 @@ import {
 } from 'app/api/characters';
 import { Actions } from './Actions';
 import { useMediaQuery } from 'react-responsive';
+import ReactMarkdown from 'react-markdown';
 
 interface MessageComponentProps {
   role?: string;
@@ -18,6 +19,7 @@ interface MessageComponentProps {
   customName?: string;
   useCustomName?: boolean;
   avatar?: string;
+  loader?: boolean;
 }
 
 export const MessageComponent = ({
@@ -27,6 +29,7 @@ export const MessageComponent = ({
   customName,
   useCustomName = false,
   avatar,
+  loader = false,
 }: MessageComponentProps) => {
   const avatarProps = {
     src: null,
@@ -52,9 +55,18 @@ export const MessageComponent = ({
       if (match.index > lastIndex) {
         const textBeforeCode = message.slice(lastIndex, match.index);
         // Split the text before the code block by newline characters and wrap each line in a <p> element
-        const textLines = textBeforeCode
-          .split('\n')
-          .map((line, index) => <InnerText key={index}>{line}</InnerText>);
+        const textLines = textBeforeCode.split('\n').map((line, index) => (
+          <InnerText key={index}>
+            <ReactMarkdown
+              components={{
+                h1: 'h2',
+                h2: 'h3',
+              }}
+            >
+              {line}
+            </ReactMarkdown>
+          </InnerText>
+        ));
         // Add the wrapped lines to the parts array
         parts.push(...textLines);
       }
@@ -78,15 +90,24 @@ export const MessageComponent = ({
     if (lastIndex < message.length) {
       const remainingText = message.slice(lastIndex);
       // Split the remaining text by newline characters and wrap each line in a <p> element
-      const remainingLines = remainingText
-        .split('\n')
-        .map((line, index) => <InnerText key={index}>{line}</InnerText>);
+      const remainingLines = remainingText.split('\n').map((line, index) => (
+        <InnerText key={index}>
+          <ReactMarkdown
+            components={{
+              h1: 'h2',
+              h2: 'h3',
+            }}
+          >
+            {line}
+          </ReactMarkdown>
+        </InnerText>
+      ));
       // Add the wrapped lines to the parts array
       parts.push(...remainingLines);
     }
 
     // Return the parts as an array of React elements
-    return <>{parts}</>;
+    return parts;
   };
 
   const generateAvatarText = (role: string) => {
@@ -105,7 +126,7 @@ export const MessageComponent = ({
         justifyContent: role === 'assistant' ? 'flex-start' : 'flex-end',
         opacity: visible ? 1 : 0,
         visibility: visible ? 'visible' : 'hidden',
-        height: visible ? 'auto' : 0,
+        height: visible ? (loader ? '30px' : 'auto') : 0,
         margin: visible ? '15px 0' : 0,
         transition: 'opacity 0.3s ease-in-out',
       }}
@@ -175,6 +196,11 @@ const Text = styled.p<any>`
 const InnerText = styled.p`
   padding: 0;
   margin: 0;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const CodeWrapper = styled.div`
