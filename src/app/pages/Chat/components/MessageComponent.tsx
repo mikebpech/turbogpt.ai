@@ -45,7 +45,7 @@ export const MessageComponent = ({
       return message;
     }
 
-    const codeRegex = /```([\s\S]*?)```/g;
+    const codeRegex = /```(?:\w+)?\s*([\s\S]*?)```/g;
     const parts: (string | JSX.Element)[] = [];
     let lastIndex = 0;
     let match: RegExpExecArray | null;
