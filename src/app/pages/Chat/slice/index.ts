@@ -76,10 +76,10 @@ const slice = createSlice({
     },
     removeConversation(state, action: PayloadAction<number>) {
       state.conversations.splice(action.payload, 1);
-      if (state.selectedConversation === action.payload) {
-        state.selectedConversation = 0;
+      state.selectedConversation = 0;
+      if (state.conversations[0].length) {
+        state.messages = state.conversations[0];
       }
-      state.messages = state.conversations[state.selectedConversation];
       saveConversationsToStorage(state.conversations);
     },
     setSelectedConversation(state, action: PayloadAction<number>) {
