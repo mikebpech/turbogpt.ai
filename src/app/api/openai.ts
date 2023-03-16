@@ -108,7 +108,7 @@ export const sendMessage = (
     {
       role: 'system',
       content:
-        "Use markdown to format all your answers except for code. (Don't mention it to the other user).",
+        "Use markdown to format all your answers. (Don't mention it to the other user).",
     },
   ];
 
