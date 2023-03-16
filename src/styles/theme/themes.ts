@@ -18,7 +18,7 @@ const darkTheme: Theme = {
   backgroundVariant: '#1F1B24',
   border: 'rgba(241,233,231,0.15)',
   borderLight: 'rgba(241,233,231,0.05)',
-  chatBubbleSystem: 'rgb(59,130,246)',
+  chatBubbleSystem: 'rgb(41, 41, 41)',
   codeBackground: 'rgb(20, 21, 23);',
 };
 

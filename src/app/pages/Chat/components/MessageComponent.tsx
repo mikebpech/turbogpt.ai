@@ -181,7 +181,7 @@ const BubbleWrap = styled.div``;
 
 const Text = styled.p<any>`
   margin: 0 10px;
-  color: white;
+  color: #f3f3f3;
   background-color: ${props => props.theme.chatBubbleSystem};
   padding: 10px;
   font-size: 1rem;
