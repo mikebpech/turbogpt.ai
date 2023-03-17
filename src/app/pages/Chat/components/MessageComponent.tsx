@@ -188,6 +188,7 @@ const Text = styled.p<any>`
   padding: 10px;
   font-size: 1rem;
   border-radius: 0.5rem;
+  width: 90%;
 
   pre {
     margin: 0 !important;
@@ -212,6 +213,7 @@ const InnerText = styled.p`
 
 const CodeWrapper = styled.div`
   padding: 10px 0;
+  overflow-x: auto;
   opacity: 100%;
 
   pre {
