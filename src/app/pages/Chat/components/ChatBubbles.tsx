@@ -2,6 +2,7 @@ import { characterOptions } from 'app/api/characters';
 import { Link } from 'app/components/Link';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components/macro';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Message } from 'utils/types/injector-typings';
@@ -27,6 +28,7 @@ export function ChatBubbles({
   const useCustomName = useSelector(getGenerateName);
   const selectedCharacter = useSelector(getCharacter);
   const verifyingKey = useSelector(getVerifyingApiKey);
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const [customName, setCustomName] = React.useState('');
   const [avatar, setAvatar] = React.useState('');
 
@@ -71,7 +73,7 @@ export function ChatBubbles({
   }, [messages]);
 
   return (
-    <Wrapper>
+    <Wrapper isMobile={isMobile}>
       {verifyingKey ? (
         <MessageComponent
           customName={customName}
@@ -138,10 +140,13 @@ const StyledLink = styled.a`
   cursor: pointer;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<any>`
   width: 100%;
   z-index: 5;
-  min-height: calc(92% - ${StyleConstants.NAV_BAR_HEIGHT});
+  min-height: ${props =>
+    `calc(${props.isMobile ? '96%' : '92%'} - ${
+      StyleConstants.NAV_BAR_HEIGHT
+    })`};
   overflow-y: auto;
   height: 100%;
   padding: 10px;

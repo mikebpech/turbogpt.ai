@@ -177,7 +177,9 @@ const Message = styled.div`
   margin-top: 15px;
 `;
 
-const BubbleWrap = styled.div``;
+const BubbleWrap = styled.div`
+  overflow: hidden;
+`;
 
 const Text = styled.p<any>`
   margin: 0 10px;
@@ -187,8 +189,13 @@ const Text = styled.p<any>`
   font-size: 1rem;
   border-radius: 0.5rem;
 
+  pre {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   .prism {
-    max-width: ${props => (props.isMobile ? '66vw' : 'unset')};
+    max-width: ${props => (props.isMobile ? '80vw' : 'unset')};
     overflow-x: auto;
   }
 `;
