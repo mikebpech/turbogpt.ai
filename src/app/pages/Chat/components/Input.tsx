@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextInput as MantineInput } from '@mantine/core';
+import { Button, Textarea as MantineInput } from '@mantine/core';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getOpenAiKeyStatus, getVerifyingApiKey } from '../slice/selectors';
@@ -44,6 +44,14 @@ export function Input({
     }
   }, [disabled]);
 
+  // Listen for enter key on textarea
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // If holding shift + enter
+    if (!e.shiftKey && e.key === 'Enter') {
+      handleSubmitForm(e as any);
+    }
+  };
+
   return (
     <Wrapper>
       <InputWrapper
@@ -58,6 +66,10 @@ export function Input({
           value={message}
           style={{ width: '100%' }}
           placeholder="Type your message here"
+          onKeyDown={e => handleKeyDown(e)}
+          minRows={1}
+          maxRows={3}
+          autosize={true}
         />
         <Button
           disabled={!apiKeyStatus || disabled || apiKeyVerifiying}

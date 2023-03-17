@@ -141,7 +141,7 @@ const StyledLink = styled.a`
 const Wrapper = styled.div`
   width: 100%;
   z-index: 5;
-  min-height: calc(97% - ${StyleConstants.NAV_BAR_HEIGHT});
+  min-height: calc(92% - ${StyleConstants.NAV_BAR_HEIGHT});
   overflow-y: auto;
   height: 100%;
   padding: 10px;
