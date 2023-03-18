@@ -139,6 +139,7 @@ export const MessageComponent = ({
           width: '44px',
           height: '44px',
           minWidth: '44px',
+          marginLeft: '3px',
           marginTop: customName && role === 'assistant' ? '25px' : 0,
         }}
         src={role === 'assistant' ? avatar : null}
@@ -147,7 +148,6 @@ export const MessageComponent = ({
         {generateAvatarText(role)}
       </Avatar>
 
-      <BubbleWrap>
         {role === 'assistant' && customName && (
           <Badge
             size={isMobile ? 'xs' : 'sm'}
@@ -161,7 +161,6 @@ export const MessageComponent = ({
           <Text isMobile={isMobile}>{detectFormatting(message)}</Text>
           {role === 'assistant' && <Actions copyValue={message as string} />}
         </MessageBar>
-      </BubbleWrap>
     </Message>
   );
 };
@@ -169,16 +168,13 @@ export const MessageComponent = ({
 const MessageBar = styled.div`
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 `;
 
 const Message = styled.div`
   display: flex;
   align-items: flex-start;
   margin-top: 15px;
-`;
-
-const BubbleWrap = styled.div`
-  overflow: hidden;
 `;
 
 const Text = styled.p<any>`
@@ -188,11 +184,13 @@ const Text = styled.p<any>`
   padding: 10px;
   font-size: 1rem;
   border-radius: 0.5rem;
-  width: 90%;
+  width: 96%;
 
   pre {
     margin: 0 !important;
     padding: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .prism {

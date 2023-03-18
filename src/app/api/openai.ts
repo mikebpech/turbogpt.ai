@@ -104,12 +104,12 @@ export const sendMessage = (
 
   // Add markup support
   copy = [
-    ...copy,
     {
       role: 'system',
       content:
         "Use markdown to format all your answers. (Don't mention it to the other user).",
     },
+    ...copy,
   ];
 
   return fetchMessage(key, copy, model);
