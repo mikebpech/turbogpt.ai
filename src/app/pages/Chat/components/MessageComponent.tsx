@@ -148,6 +148,8 @@ export const MessageComponent = ({
         {generateAvatarText(role)}
       </Avatar>
 
+      <BubbleWrap>
+
         {role === 'assistant' && customName && (
           <Badge
             size={isMobile ? 'xs' : 'sm'}
@@ -161,9 +163,13 @@ export const MessageComponent = ({
           <Text isMobile={isMobile}>{detectFormatting(message)}</Text>
           {role === 'assistant' && <Actions copyValue={message as string} />}
         </MessageBar>
+        </BubbleWrap>
     </Message>
   );
 };
+
+const BubbleWrap = styled.div`
+`;
 
 const MessageBar = styled.div`
   display: flex;
