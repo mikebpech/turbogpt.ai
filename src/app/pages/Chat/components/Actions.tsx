@@ -18,7 +18,7 @@ export function Actions({
   const { actions } = useModalSlice();
 
   const handleOpenModal = () => {
-    if (messageIdx) {
+    if (messageIdx !== null || messageIdx !== undefined) {
       dispatch(actions.setEditModalData(copyValue));
       dispatch(actions.setEditModalSelectedMessageIdx(messageIdx));
       dispatch(actions.openEditModal());
