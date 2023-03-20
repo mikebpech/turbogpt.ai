@@ -1,16 +1,21 @@
 import React from 'react';
-import { Button, Textarea as MantineInput } from '@mantine/core';
+import { ActionIcon, Button, Textarea as MantineInput } from '@mantine/core';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getOpenAiKeyStatus, getVerifyingApiKey } from '../slice/selectors';
 import { useMediaQuery } from 'react-responsive';
+import { IconRefresh } from '@tabler/icons-react';
 
 export function Input({
   addMessage,
   disabled = false,
+  handleRegen,
+  canRegen = false,
 }: {
   addMessage: (message: string) => void;
+  handleRegen: () => void;
   disabled: boolean;
+  canRegen: boolean;
 }) {
   const [message, setMessage] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -82,6 +87,20 @@ export function Input({
           color="indigo"
         >
           Send
+        </Button>
+        <Button
+          onClick={() => handleRegen()}
+          disabled={!apiKeyStatus || disabled || apiKeyVerifiying || !canRegen}
+          type="button"
+          size={isTabletOrMobile ? 'md' : 'lg'}
+          variant="filled"
+          radius="md"
+          ml={10}
+          loading={loading}
+          color="red"
+          style={{ padding: '0 10px' }}
+        >
+          <IconRefresh />
         </Button>
       </InputWrapper>
     </Wrapper>

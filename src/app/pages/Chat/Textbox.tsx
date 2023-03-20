@@ -52,6 +52,14 @@ export function Textbox() {
     },
   );
 
+  const handleRegenLastMessage = () => {
+    const newMessages = messages.slice(0, messages.length - 1);
+    dispatch(actions.setMessages(newMessages));
+    setTimeout(() => {
+      refetch();
+    }, 1000);
+  };
+
   const addMessage = (message: string) => {
     dispatch(
       actions.setMessages([...messages, { role: 'user', content: message }]),
@@ -69,7 +77,15 @@ export function Textbox() {
         </Character>
       )}
       <ChatBubbles isTyping={isLoading || isRefetching} messages={messages} />
-      <Input disabled={isLoading || isRefetching} addMessage={addMessage} />
+      <Input
+        canRegen={
+          messages.length > 1 &&
+          messages[messages.length - 1].role === 'assistant'
+        }
+        handleRegen={handleRegenLastMessage}
+        disabled={isLoading || isRefetching}
+        addMessage={addMessage}
+      />
     </Wrapper>
   );
 }
@@ -86,7 +102,7 @@ export const Model = styled.p`
 const Wrapper = styled.main<any>`
   height: ${props => (props.isMobile ? '100%' : '100%')};
   display: flex;
-  width: ${props => (props.isMobile ? '100%' : '60vw')};
+  width: ${props => (props.isMobile ? '100%' : '65vw')};
   flex-direction: column;
   align-items: center;
   margin-bottom: 0;

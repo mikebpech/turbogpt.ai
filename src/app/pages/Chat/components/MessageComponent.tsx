@@ -20,6 +20,7 @@ interface MessageComponentProps {
   useCustomName?: boolean;
   avatar?: string;
   loader?: boolean;
+  messageIdx?: number;
 }
 
 export const MessageComponent = ({
@@ -30,6 +31,7 @@ export const MessageComponent = ({
   useCustomName = false,
   avatar,
   loader = false,
+  messageIdx,
 }: MessageComponentProps) => {
   const avatarProps = {
     src: null,
@@ -39,6 +41,7 @@ export const MessageComponent = ({
   };
 
   const characterSelected = useSelector(getCharacter);
+  const [showActions, setShowActions] = React.useState(false);
 
   const detectFormatting = (message: string | React.ReactNode) => {
     if (typeof message !== 'string') {
@@ -140,7 +143,7 @@ export const MessageComponent = ({
           height: '44px',
           minWidth: '44px',
           marginLeft: '3px',
-          marginTop: customName && role === 'assistant' ? '25px' : 0,
+          marginTop: 0,
         }}
         src={role === 'assistant' ? avatar : null}
         radius="0.5rem"
@@ -149,26 +152,40 @@ export const MessageComponent = ({
       </Avatar>
 
       <BubbleWrap>
-
         {role === 'assistant' && customName && (
           <Badge
             size={isMobile ? 'xs' : 'sm'}
-            style={{ marginLeft: '10px', marginBottom: '5px' }}
             color="red"
+            className="custom-name"
           >
             {customName}
           </Badge>
         )}
-        <MessageBar>
-          <Text isMobile={isMobile}>{detectFormatting(message)}</Text>
-          {role === 'assistant' && <Actions copyValue={message as string} />}
+        <MessageBar
+          onMouseEnter={() => setShowActions(true)}
+          onMouseLeave={() => setShowActions(false)}
+        >
+          <Text order={role === 'assistant' ? 0 : 1} isMobile={isMobile}>
+            {detectFormatting(message)}
+          </Text>
+          <Actions
+            showButtons={showActions}
+            messageIdx={messageIdx}
+            copyValue={message as string}
+          />
         </MessageBar>
-        </BubbleWrap>
+      </BubbleWrap>
     </Message>
   );
 };
 
 const BubbleWrap = styled.div`
+  position: relative;
+
+  .custom-name {
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
 `;
 
 const MessageBar = styled.div`
@@ -179,7 +196,7 @@ const MessageBar = styled.div`
 
 const Message = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 15px;
 `;
 
@@ -191,12 +208,15 @@ const Text = styled.p<any>`
   font-size: 1rem;
   border-radius: 0.5rem;
   width: 96%;
+  order: ${props => props.order};
 
   pre {
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    white-space: normal;
   }
 
   .prism {

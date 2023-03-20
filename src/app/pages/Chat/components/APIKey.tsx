@@ -34,7 +34,6 @@ export function APIKey() {
       enabled: false,
       refetchOnMount: false,
       onSettled: resp => {
-        console.log('resp', resp);
         if (resp?.status === 404) {
           dispatch(actions.setOpenAiKeyStatus(false));
           dispatch(actions.setVerifyingApiKey(false));

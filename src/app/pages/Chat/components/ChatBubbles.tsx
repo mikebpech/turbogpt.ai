@@ -121,6 +121,7 @@ export function ChatBubbles({
               key={index}
               role={message.role}
               message={message.content as string}
+              messageIdx={index}
             />
           );
         })

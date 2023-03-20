@@ -6,16 +6,14 @@ import { StyleConstants } from 'styles/StyleConstants';
 import { Textbox } from './Textbox';
 import { LeftSidebar } from './components/LeftSidebar';
 import { useMediaQuery } from 'react-responsive';
+import EditModal from 'app/components/Modal/EditModal';
 
 export function ChatPage() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   return (
     <>
-      <Helmet>
-        <title>Chat</title>
-        <meta name="description" content="Page not found" />
-      </Helmet>
+      <EditModal />
       <NavBar />
       <Body>
         {!isTabletOrMobile && <LeftSidebar />}
