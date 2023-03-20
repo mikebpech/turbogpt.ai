@@ -53,7 +53,7 @@ export function Nav() {
         <TwitterIcon width={18} style={{ marginRight: 5 }} />
         Twitter
       </Item>
-      <Item href="https://hccar8zm06k.typeform.com/to/An6RHMdE" target="_blank">
+      <Item href="https://forms.gle/UHQSKzUNyr7ZXkUV8" target="_blank">
         <IconBulb width={18} style={{ marginRight: 5 }} />
         Idea
       </Item>
