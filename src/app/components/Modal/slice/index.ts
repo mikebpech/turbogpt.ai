@@ -19,7 +19,6 @@ const slice = createSlice({
       state.editModal.isOpen = true;
     },
     closeEditModal(state) {
-      // OK NOW WE HAVE TO SET THE MESSAGE IN THE OTHER REDUX THING.
       state.editModal.isOpen = false;
       state.editModal.data = '';
     },
