@@ -96,7 +96,6 @@ export function Input({
           variant="filled"
           radius="md"
           ml={10}
-          loading={loading}
           color="red"
           style={{ padding: '0 10px' }}
         >
