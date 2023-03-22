@@ -215,8 +215,6 @@ const Text = styled.p<any>`
     padding: 0 !important;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    white-space: normal;
   }
 
   .prism {
