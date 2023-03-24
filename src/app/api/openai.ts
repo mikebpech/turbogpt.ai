@@ -56,7 +56,10 @@ export const sendMessage = (
     }
   }
 
-  if (characterPrompts[characterSelected]) {
+  if (
+    characterPrompts[characterSelected] &&
+    characterSelected !== 'Default AI'
+  ) {
     console.log('--- Selected Character... Adding to messages... ---');
     copy = [
       { role: 'system', content: characterPrompts[characterSelected] },
