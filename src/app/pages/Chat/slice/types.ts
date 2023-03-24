@@ -13,6 +13,13 @@ export interface ChatOptionsState {
   conversations: Message[][];
   selectedConversation: number;
   model: ApiModel;
+  customPrompt: CustomPrompt;
+  userCreatedPrompts: CustomPrompt[];
 }
+
+export type CustomPrompt = {
+  prompt: string;
+  act: string;
+};
 
 export type ApiModel = 'gpt-3.5-turbo' | 'gpt-4';

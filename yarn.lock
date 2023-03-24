@@ -2101,10 +2101,10 @@
     react-remove-scroll "^2.5.5"
     react-textarea-autosize "8.3.4"
 
-"@mantine/hooks@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-6.0.1.tgz#0b01f445b8b03854b029fd257e810424da30df2c"
-  integrity sha512-D3zWNPMrmjBbns0krXCE5FyWNmrKosYqD+J4/yyBrngvN6XMlmqfUr4C6ofndRrpZHxyshEJgVYLvB5h2bioGQ==
+"@mantine/hooks@6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-6.0.4.tgz#c2d133d9f9cf56e6f6c2b609c438e180fe8fc98e"
+  integrity sha512-rG+P18vOJcMQGo/3XAzR3f7rtmzjuccTIc10I9F2J49cRKem4wQZQdYeA8Wnxx95SRmVTQtf2hYXjbUliqgmAA==
 
 "@mantine/prism@6.0.2":
   version "6.0.2"

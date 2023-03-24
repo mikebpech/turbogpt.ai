@@ -9,6 +9,8 @@ import { PickModel } from './PickModel';
 import { Conversations } from './Conversations';
 import { MoodSlider } from './MoodSlider';
 import SelectCharacter from './SelectCharacter';
+import { StyleConstants } from 'styles/StyleConstants';
+import CustomPrompts from './CustomPrompts';
 
 export function LeftSidebar() {
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
@@ -41,6 +43,8 @@ export function LeftSidebar() {
             <APIKey />
             <Divider my="md" variant="dashed" />
             <SelectCharacter />
+            <Divider my="md" variant="dashed" />
+            <CustomPrompts />
             <Divider my="md" variant="dashed" />
             <MoodSlider />
             <Divider my="md" variant="dashed" />
@@ -80,6 +84,8 @@ const Title = styled.h2`
 `;
 
 const Wrapper = styled.div`
+  max-height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
+  overflow-y: auto;
   width: 30vw;
   margin-right: 10px;
   padding: 2vh 0;
@@ -100,4 +106,5 @@ const Love = styled.div`
   justify-content: center;
   color: ${props => props.theme.text};
   font-weight: 500;
+  padding-bottom: 15px;
 `;

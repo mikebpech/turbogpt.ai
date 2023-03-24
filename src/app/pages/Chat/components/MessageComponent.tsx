@@ -215,11 +215,17 @@ const Text = styled.p<any>`
     padding: 0 !important;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    white-space: normal;
   }
 
   .prism {
     max-width: ${props => (props.isMobile ? '80vw' : 'unset')};
     overflow-x: auto;
+
+    pre {
+      white-space: pre-wrap;
+    }
   }
 `;
 

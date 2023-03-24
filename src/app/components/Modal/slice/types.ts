@@ -5,4 +5,7 @@ export interface ModalState {
     data: string;
     selectedMessageIdx: number;
   };
+  promptModal: {
+    isOpen: boolean;
+  };
 }

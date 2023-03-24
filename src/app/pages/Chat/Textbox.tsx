@@ -7,6 +7,7 @@ import { sendMessage } from '../../api/openai';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getCharacter,
+  getCustomPrompt,
   getMessages,
   getModel,
   getMood,
@@ -26,6 +27,7 @@ export function Textbox() {
   const characterSelected = useSelector(getCharacter);
   const moodSelected = useSelector(getMood);
   const modelSelected = useSelector(getModel);
+  const customPrompt = useSelector(getCustomPrompt);
   const { actions } = useChatOptionsSlice();
 
   const dispatch = useDispatch();
@@ -40,6 +42,7 @@ export function Textbox() {
         moodSelected,
         characterSelected,
         modelSelected,
+        customPrompt,
       ).then(function (response) {
         return response.json();
       });

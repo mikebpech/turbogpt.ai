@@ -1,4 +1,4 @@
-import { ApiModel } from 'app/pages/Chat/slice/types';
+import { ApiModel, CustomPrompt } from 'app/pages/Chat/slice/types';
 import { Message } from 'utils/types/injector-typings';
 import { characterPrompts } from './characters';
 
@@ -40,6 +40,7 @@ export const sendMessage = (
   mood: number,
   characterSelected: string,
   model: ApiModel,
+  customPrompt: CustomPrompt,
 ) => {
   let copy = [...messages];
 
@@ -102,7 +103,18 @@ export const sendMessage = (
     ];
   }
 
-  // Add markup support
+  if (customPrompt && customPrompt.act !== 'None') {
+    console.log('--- Selected Custom Prompt... Adding to messages... ---');
+    copy = [
+      {
+        role: 'system',
+        content: customPrompt.prompt,
+      },
+      ...copy,
+    ];
+  }
+
+  // Add markdown support
   copy = [
     {
       role: 'system',

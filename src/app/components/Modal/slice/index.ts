@@ -9,6 +9,9 @@ export const initialState: ModalState = {
     data: '',
     selectedMessageIdx: 0,
   },
+  promptModal: {
+    isOpen: false,
+  },
 };
 
 const slice = createSlice({
@@ -27,6 +30,12 @@ const slice = createSlice({
     },
     setEditModalSelectedMessageIdx(state, action: PayloadAction<number>) {
       state.editModal.selectedMessageIdx = action.payload;
+    },
+    openPromptModal(state) {
+      state.promptModal.isOpen = true;
+    },
+    closePromptModal(state) {
+      state.promptModal.isOpen = false;
     },
   },
 });

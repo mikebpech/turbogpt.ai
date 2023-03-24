@@ -34,10 +34,6 @@ function SelectCharacter() {
     debouncedDispatch(character);
   }, [character, debouncedDispatch]);
 
-  useEffect(() => {
-    debouncedDispatch(character);
-  }, [character, debouncedDispatch]);
-
   return (
     <Wrapper>
       <NativeSelect

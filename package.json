@@ -14,7 +14,7 @@
     "@codemirror/lang-sql": "6.4.0",
     "@emotion/react": "11.10.6",
     "@mantine/core": "6.0.1",
-    "@mantine/hooks": "6.0.1",
+    "@mantine/hooks": "6.0.4",
     "@mantine/prism": "6.0.2",
     "@reduxjs/toolkit": "1.8.5",
     "@tabler/icons-react": "2.10.0",

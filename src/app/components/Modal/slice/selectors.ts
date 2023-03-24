@@ -18,3 +18,7 @@ export const selectEditModalSelectedMessageIdx = createSelector(
   [selectSlice],
   state => state.editModal.selectedMessageIdx,
 );
+export const selectPromptModalOpen = createSelector(
+  [selectSlice],
+  state => state.promptModal.isOpen,
+);

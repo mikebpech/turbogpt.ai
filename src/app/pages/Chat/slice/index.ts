@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ApiModel } from './types';
+import { ApiModel, CustomPrompt } from './types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { chatOptionsSaga } from './saga';
@@ -14,10 +14,16 @@ import {
   getMessagesInLocalStorage,
   saveModelToStorage,
   getModelFromStorage,
+  getCustomUserPrompts,
+  saveCustomUserPrompts,
+  getSelectedPrompt,
+  saveSelectedPrompt,
+  getSelectedCharacter,
+  saveSelectedCharacter,
 } from '../utils';
 
 export const initialState: ChatOptionsState = {
-  selectedCharacter: 'Default AI',
+  selectedCharacter: getSelectedCharacter() || 'Default AI',
   chatMood: 50,
   openAiApiKey: getOpenAiKeyFromStorage() || '',
   openAiKeyStatus: false,
@@ -28,6 +34,11 @@ export const initialState: ChatOptionsState = {
   conversations: getConversationsFromStorage() || [],
   selectedConversation: 0,
   model: getModelFromStorage() || 'gpt-3.5-turbo',
+  customPrompt: getSelectedPrompt() || {
+    prompt: '',
+    act: '',
+  },
+  userCreatedPrompts: getCustomUserPrompts() || [],
 };
 
 const slice = createSlice({
@@ -36,6 +47,7 @@ const slice = createSlice({
   reducers: {
     changeSelectedCharacter(state, action: PayloadAction<string>) {
       state.selectedCharacter = action.payload;
+      saveSelectedCharacter(action.payload);
     },
     changeMood(state, action: PayloadAction<number>) {
       state.chatMood = action.payload;
@@ -91,6 +103,24 @@ const slice = createSlice({
     setModel(state, action: PayloadAction<ApiModel>) {
       state.model = action.payload;
       saveModelToStorage(action.payload);
+    },
+    setCustomPrompt(state, action: PayloadAction<CustomPrompt>) {
+      state.customPrompt = action.payload;
+      saveSelectedPrompt(action.payload);
+    },
+    addPromptToUserCreatedPrompts(state, action: PayloadAction<CustomPrompt>) {
+      state.userCreatedPrompts.push(action.payload);
+      saveCustomUserPrompts(state.userCreatedPrompts);
+    },
+    removePromptFromUserCreatedPrompts(
+      state,
+      action: PayloadAction<CustomPrompt>,
+    ) {
+      const index = state.userCreatedPrompts.findIndex(
+        prompt => prompt.act === action.payload.act,
+      );
+      state.userCreatedPrompts.splice(index, 1);
+      saveCustomUserPrompts(state.userCreatedPrompts);
     },
   },
 });

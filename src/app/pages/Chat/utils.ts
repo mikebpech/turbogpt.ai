@@ -1,5 +1,5 @@
 import { Message } from 'utils/types/injector-typings';
-import { ApiModel } from './slice/types';
+import { ApiModel, CustomPrompt } from './slice/types';
 
 export function saveOpenAiKey(key: string) {
   if (key !== '') {
@@ -10,6 +10,40 @@ export function saveOpenAiKey(key: string) {
 export function getOpenAiKeyFromStorage(): string | null {
   return window.localStorage
     ? (localStorage.getItem('openAiKey') as string) || null
+    : null;
+}
+
+export function saveSelectedCharacter(character: string) {
+  window.localStorage && localStorage.setItem('character', character);
+}
+
+export function getSelectedCharacter(): string | null {
+  return window.localStorage
+    ? (localStorage.getItem('character') as string) || null
+    : null;
+}
+
+export function saveSelectedPrompt(prompt: CustomPrompt) {
+  window.localStorage && localStorage.setItem('prompt', JSON.stringify(prompt));
+}
+
+export function getSelectedPrompt(): CustomPrompt | null {
+  return window.localStorage
+    ? (JSON.parse(localStorage.getItem('prompt') as string) as CustomPrompt) ||
+        null
+    : null;
+}
+
+export function saveCustomUserPrompts(prompts: CustomPrompt[]) {
+  window.localStorage &&
+    localStorage.setItem('customUserPrompts', JSON.stringify(prompts));
+}
+
+export function getCustomUserPrompts(): CustomPrompt[] | null {
+  return window.localStorage
+    ? (JSON.parse(
+        localStorage.getItem('customUserPrompts') as string,
+      ) as CustomPrompt[]) || null
     : null;
 }
 

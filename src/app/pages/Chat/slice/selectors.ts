@@ -50,3 +50,11 @@ export const getModel = createSelector(
   [(state: RootState) => state.chatOptions || initialState],
   options => options.model,
 );
+export const getCustomPrompt = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.customPrompt,
+);
+export const getUserCreatedPrompts = createSelector(
+  [(state: RootState) => state.chatOptions || initialState],
+  options => options.userCreatedPrompts,
+);

@@ -7,6 +7,7 @@ import { Textbox } from './Textbox';
 import { LeftSidebar } from './components/LeftSidebar';
 import { useMediaQuery } from 'react-responsive';
 import EditModal from 'app/components/Modal/EditModal';
+import PromptModal from 'app/components/Modal/PromptModal';
 
 export function ChatPage() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -14,6 +15,7 @@ export function ChatPage() {
   return (
     <>
       <EditModal />
+      <PromptModal />
       <NavBar />
       <Body>
         {!isTabletOrMobile && <LeftSidebar />}
