@@ -111,7 +111,7 @@ export const sendMessage = (
     copy = [
       {
         role: 'system',
-        content: customPrompt.prompt,
+        content: `YOU MUST ACT LIKE THE FOLLOWING, DO NOT BREAK CHARACTER: ${customPrompt.prompt}`,
       },
       ...copy,
     ];
