@@ -16,11 +16,11 @@ import { Grid, ScrollArea, SegmentedControl } from '@mantine/core';
 import PromptCard from './components/PromptCard';
 import prompts from '../../../data/prompts.json';
 import CreatePrompt from './components/CreatePrompt';
+import { useMediaQuery } from 'react-responsive';
 
 function PromptModal() {
   const { actions } = useModalSlice();
   const [selectedTab, setSelectedTab] = React.useState(0);
-  const chatOptions = useChatOptionsSlice();
   const userPrompts = useSelector(getUserCreatedPrompts);
   const selectedPrompt = useSelector(getCustomPrompt);
   const isOpen = useSelector(selectPromptModalOpen);

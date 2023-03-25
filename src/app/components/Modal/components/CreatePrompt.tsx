@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useChatOptionsSlice } from 'app/pages/Chat/slice';
 import { CustomPrompt } from 'app/pages/Chat/slice/types';
+import { useMediaQuery } from 'react-responsive';
 
 function CreatePrompt({
   title,
@@ -24,6 +25,7 @@ function CreatePrompt({
   const dispatch = useDispatch();
   const [act, setAct] = React.useState('');
   const [prompt, setPrompt] = React.useState('');
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const handleSelectPrompt = (prompt: CustomPrompt) => {
     dispatch(actions.setCustomPrompt(prompt));
@@ -40,7 +42,7 @@ function CreatePrompt({
   };
 
   return (
-    <Grid.Col span={4}>
+    <Grid.Col span={isMobile ? 'auto' : 4}>
       <Card shadow="sm" padding="md" radius="md" withBorder>
         <Input
           onChange={e => setAct(e.target.value)}

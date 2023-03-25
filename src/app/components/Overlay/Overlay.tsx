@@ -12,6 +12,7 @@ import { IconBulb, IconHeartFilled } from '@tabler/icons-react';
 import { useSelector } from 'react-redux';
 import { getVerifyingApiKey } from 'app/pages/Chat/slice/selectors';
 import { Conversations } from 'app/pages/Chat/components/Conversations';
+import CustomPrompts from 'app/pages/Chat/components/CustomPrompts';
 
 export function Overlay({ isOpened = false }: { isOpened: boolean }) {
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
@@ -45,6 +46,8 @@ export function Overlay({ isOpened = false }: { isOpened: boolean }) {
             <APIKey />
             <Divider my="md" variant="dashed" />
             <SelectCharacter />
+            <Divider my="md" variant="dashed" />
+            <CustomPrompts />
             <Divider my="md" variant="dashed" />
             <MoodSlider />
             <Divider my="md" variant="dashed" />

@@ -5,6 +5,7 @@ import { useModalSlice } from '../slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useChatOptionsSlice } from 'app/pages/Chat/slice';
 import { CustomPrompt } from 'app/pages/Chat/slice/types';
+import { useMediaQuery } from 'react-responsive';
 
 function PromptCard({
   title,
@@ -19,6 +20,8 @@ function PromptCard({
 }) {
   const { actions } = useChatOptionsSlice();
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+
 
   const handleSelectPrompt = (prompt: CustomPrompt) => {
     if (active) {
@@ -34,7 +37,7 @@ function PromptCard({
   };
 
   return (
-    <Grid.Col className="grid-item" span={4}>
+    <Grid.Col style={{margin: 'auto auto'}} span={isMobile ? 10 : 4}>
       <Card shadow="sm" padding="md" radius="md" withBorder>
         <Group position="apart" mt="md" mb="xs">
           <Text>{title}</Text>
