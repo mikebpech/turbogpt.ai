@@ -27,7 +27,7 @@ export function Conversations() {
         size="lg"
         fullWidth
         variant="light"
-        disabled={conversations.length >= 5}
+        disabled={conversations.length >= 8}
       >
         New Conversation
       </Button>
