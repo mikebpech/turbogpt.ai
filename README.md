@@ -14,6 +14,16 @@ To install and run TurboGPT, you need to use Yarn package manager. Clone this re
 yarn install
 ```
 
+
+## Usage
+
+To use TurboGPT, simply run the following command:
+
+```bash
+yarn start
+```
+This will start the project in your terminal. Simply enter your API key and then use it as normal.
+
 ## Docker
 
 Build the Docker image with:
@@ -30,15 +40,6 @@ docker run --name turbogpt -p 3000:3000 yourname/turbogpt
 ```
 
 The container is accessible at port 3000.
-
-## Usage
-
-To use TurboGPT, simply run the following command:
-
-```bash
-yarn start
-```
-This will start the project in your terminal. Simply enter your API key and then use it as normal.
 
 ## Contributing
 
