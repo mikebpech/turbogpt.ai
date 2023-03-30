@@ -4,6 +4,8 @@ TurboGPT is an open-source ChatGPT UI project that enables users to chat with AI
 
 We also have a live running version at https://turbogpt.ai
 
+![TurboGPT Image](https://i.imgur.com/rqCepBb.jpg)
+
 ## Installation
 
 To install and run TurboGPT, you need to use Yarn package manager. Clone this repository and install the necessary packages by running the following command:
