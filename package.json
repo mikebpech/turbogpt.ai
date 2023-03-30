@@ -43,6 +43,7 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
+    "eventsource-parser": "1.0.0",
     "fontfaceobserver": "2.3.0",
     "husky": "8.0.1",
     "i18next": "21.9.2",
