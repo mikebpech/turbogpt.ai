@@ -28,20 +28,21 @@ const fetchMessage = (key: string, messages: Message[], model: ApiModel) => {
       referrer: 'https://turbogpt.ai/',
     },
     body: JSON.stringify({
+      stream: true,
       model: model || 'gpt-3.5-turbo',
       messages: messages,
     }),
   });
 };
 
-export const sendMessage = (
+export const sendMessage = async function* (
   key: string,
   messages: Message[],
   mood: number,
   characterSelected: string,
   model: ApiModel,
   customPrompt: CustomPrompt,
-) => {
+) {
   let copy = [...messages];
 
   if (model === 'gpt-4') {
@@ -127,7 +128,29 @@ export const sendMessage = (
     ...copy,
   ];
 
-  return fetchMessage(key, copy, model);
+  const response = await fetchMessage(key, copy, model);
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      const dataLines = decoder.decode(value, { stream: true }).split('\n')
+        .filter((line) => line.length > 0)
+        .map((line) => line.slice(6));
+    
+      for (const dataLine of dataLines) {
+        if (dataLine === '[DONE]') {
+          break;
+        }
+        yield JSON.parse(dataLine);
+      }
+    }
+  } finally {
+    await reader.cancel();
+  }
 };
 
 export const generateImage = (
