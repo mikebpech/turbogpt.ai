@@ -83,6 +83,8 @@ const slice = createSlice({
     updateLastMesssage(state, action: PayloadAction<string>) {
       const lastMessage = state.messages.length - 1;
       state.messages[lastMessage].content += action.payload;
+    },
+    finalizeLastMessage(state) {
       const currentConvo = state.selectedConversation;
       state.conversations[currentConvo] = state.messages;
       saveConversationsToStorage(state.conversations);

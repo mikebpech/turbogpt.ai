@@ -11,7 +11,7 @@ export function Input({
   disabled = false,
   handleRegen,
   canRegen = false,
-  text
+  text,
 }: {
   addMessage: (message: string) => void;
   handleRegen: () => void;

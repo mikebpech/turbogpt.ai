@@ -17,15 +17,8 @@ import { characterOptions } from 'app/api/characters';
 import { useMediaQuery } from 'react-responsive';
 import { useChatOptionsSlice } from './slice';
 
-const defaultMessages = [
-  { role: 'assistant', content: 'Hello there! Start by typing a message!' },
-];
-
-/** The request has been sent but no data returned yet. */
-let isInitialLoading = false;
-
 /** The user has requested to stop the streaming response. */
-let stopRequested = false;
+let stopRequest = false;
 
 export function Textbox() {
   const messages = useSelector(getMessages);
@@ -34,20 +27,21 @@ export function Textbox() {
   const moodSelected = useSelector(getMood);
   const modelSelected = useSelector(getModel);
   const customPrompt = useSelector(getCustomPrompt);
+  /** The request has been sent but no data returned yet. */
+  const [initialLoading, setInitialLoading] = React.useState(false);
   const { actions } = useChatOptionsSlice();
-  
+
   const getText = () => {
-    return (isLoading || isRefetching) ? "Stop" : "Submit";
+    return isLoading || isRefetching ? 'Stop' : 'Submit';
   };
-  
+
   const dispatch = useDispatch();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  
 
   const { isLoading, isRefetching, refetch } = useQuery(
     'chat',
     async () => {
-      isInitialLoading = true;
+      setInitialLoading(true);
       const dataLines = sendMessage(
         apiKey,
         messages,
@@ -55,15 +49,22 @@ export function Textbox() {
         characterSelected,
         modelSelected,
         customPrompt,
-      )
+      );
       const next = await dataLines.next();
-      isInitialLoading = false;
+      setInitialLoading(false);
       updateLastMessage(next.value);
-      dispatch(actions.setMessages([...messages, { role: 'assistant', content: '' }]));
+      dispatch(
+        actions.setMessages([...messages, { role: 'assistant', content: '' }]),
+      );
       for await (const data of dataLines) {
-        if (stopRequested) {
+        if (data === 'DONE') {
+          dispatch(actions.finalizeLastMessage());
+          break;
+        }
+
+        if (stopRequest) {
           dataLines.return();
-          stopRequested = false;
+          stopRequest = false;
         }
         updateLastMessage(data);
       }
@@ -72,12 +73,12 @@ export function Textbox() {
       enabled: false,
     },
   );
-  
+
   const updateLastMessage = (data: any) => {
     if (data.choices?.length > 0 && data.choices[0].delta.content) {
       dispatch(actions.updateLastMesssage(data.choices[0].delta.content));
     }
-  }
+  };
 
   const handleRegenLastMessage = () => {
     const newMessages = messages.slice(0, messages.length - 1);
@@ -88,10 +89,12 @@ export function Textbox() {
   };
 
   const addMessage = (message: string) => {
+    console.log('isLoading', isLoading, 'isRefetching', isRefetching);
     if (isLoading || isRefetching) {
-      stopRequested = true;
+      stopRequest = true;
       return;
     }
+
     if (message === '') {
       return;
     }
@@ -110,16 +113,17 @@ export function Textbox() {
           You are now speaking to a virtual {characterSelected}. Cool eh?
         </Character>
       )}
-      <ChatBubbles isTyping={isInitialLoading} messages={messages} />
+      <ChatBubbles isTyping={initialLoading} messages={messages} />
       <Input
         text={getText()}
         canRegen={
           messages.length > 1 &&
           messages[messages.length - 1].role === 'assistant' &&
-          !isLoading && !isRefetching
+          !isLoading &&
+          !isRefetching
         }
         handleRegen={handleRegenLastMessage}
-        disabled={isInitialLoading}
+        disabled={initialLoading}
         addMessage={addMessage}
       />
     </Wrapper>

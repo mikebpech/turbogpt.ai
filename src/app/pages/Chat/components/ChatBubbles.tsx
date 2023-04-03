@@ -113,6 +113,11 @@ export function ChatBubbles({
         messages.map((message, index) => {
           if (message.role === 'system') return null;
 
+          // Check if message is empty.
+          if (message.content === '') {
+            return null;
+          }
+
           return (
             <MessageComponent
               customName={customName}

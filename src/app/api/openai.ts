@@ -137,12 +137,15 @@ export const sendMessage = async function* (
       if (done) {
         break;
       }
-      const dataLines = decoder.decode(value, { stream: true }).split('\n')
-        .filter((line) => line.length > 0)
-        .map((line) => line.slice(6));
-    
+      const dataLines = decoder
+        .decode(value, { stream: true })
+        .split('\n')
+        .filter(line => line.length > 0)
+        .map(line => line.slice(6));
+
       for (const dataLine of dataLines) {
         if (dataLine === '[DONE]') {
+          yield 'DONE';
           break;
         }
         yield JSON.parse(dataLine);

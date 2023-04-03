@@ -98,6 +98,8 @@ const Inner = styled.div`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   width: 320px;
   padding: 20px;
+  max-height: 100%;
+  overflow-y: auto;
 `;
 
 const Love = styled.div`
