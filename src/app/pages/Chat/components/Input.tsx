@@ -11,14 +11,15 @@ export function Input({
   disabled = false,
   handleRegen,
   canRegen = false,
+  text
 }: {
   addMessage: (message: string) => void;
   handleRegen: () => void;
   disabled: boolean;
   canRegen: boolean;
+  text: string;
 }) {
   const [message, setMessage] = React.useState<string>('');
-  const [loading, setLoading] = React.useState<boolean>(false);
   const apiKeyStatus = useSelector(getOpenAiKeyStatus);
   const apiKeyVerifiying = useSelector(getVerifyingApiKey);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -26,28 +27,13 @@ export function Input({
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!message) {
-      return;
-    }
-
     if (disabled) {
       return;
     }
 
-    if (loading) {
-      return;
-    }
-
     addMessage(message);
-    setLoading(true);
     setMessage('');
   };
-
-  React.useEffect(() => {
-    if (!disabled) {
-      setLoading(false);
-    }
-  }, [disabled]);
 
   // Listen for enter key on textarea
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -78,7 +64,6 @@ export function Input({
         />
         <Button
           disabled={!apiKeyStatus || disabled || apiKeyVerifiying}
-          loading={loading}
           type="submit"
           size={isTabletOrMobile ? 'md' : 'lg'}
           left={5}
@@ -86,7 +71,7 @@ export function Input({
           variant="light"
           color="indigo"
         >
-          Send
+          {text}
         </Button>
         <Button
           onClick={() => handleRegen()}

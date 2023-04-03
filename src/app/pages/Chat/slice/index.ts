@@ -80,6 +80,13 @@ const slice = createSlice({
       state.conversations[currentConvo] = action.payload;
       saveConversationsToStorage(state.conversations);
     },
+    updateLastMesssage(state, action: PayloadAction<string>) {
+      const lastMessage = state.messages.length - 1;
+      state.messages[lastMessage].content += action.payload;
+      const currentConvo = state.selectedConversation;
+      state.conversations[currentConvo] = state.messages;
+      saveConversationsToStorage(state.conversations);
+    },
     addConversation(state, action: PayloadAction<any>) {
       state.conversations.push(action.payload);
       state.selectedConversation = state.conversations.length - 1;
