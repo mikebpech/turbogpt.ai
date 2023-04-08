@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  turbogpt:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
