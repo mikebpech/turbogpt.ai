@@ -47,8 +47,11 @@ function PromptModal() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = React.useState('');
   const promptsToMap = (selectedTab === 0 ? prompts : userPrompts).filter(
-    prompt => prompt.prompt.toLowerCase().includes(searchQuery.toLowerCase()),
+    prompt =>
+      prompt.prompt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      prompt.act.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
   const isMobile = useMediaQuery({ query: '(max-width: 480px)' });
 
   const onClose = () => {
