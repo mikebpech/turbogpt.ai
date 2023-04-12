@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Card,
-  Grid,
-  Group,
-  Input,
-  Text,
-  Textarea,
-} from '@mantine/core';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button, Card, Grid, Input, Textarea } from '@mantine/core';
+import { useDispatch } from 'react-redux';
 import { useChatOptionsSlice } from 'app/pages/Chat/slice';
 import { CustomPrompt } from 'app/pages/Chat/slice/types';
 import { useMediaQuery } from 'react-responsive';
@@ -79,15 +70,3 @@ function CreatePrompt({
 }
 
 export default CreatePrompt;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const TextWrap = styled.div`
-  max-height: 200px;
-  overflow-y: auto;
-  color: ${props => props.theme.textSecondary};
-  font-size: 0.8rem;
-`;
