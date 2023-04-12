@@ -23,6 +23,14 @@ yarn start
 ```
 This will start the project in your terminal. Simply enter your API key and then use it as normal.
 
+## Docker
+
+TurboGPT's server can be instantiated in Docker. The server will automatically restart with Docker. 
+
+```bash
+docker-compose up -d --build
+```
+
 ## Contributing
 
 We welcome and encourage contributions to TurboGPT. To contribute to the project, please follow these steps:
