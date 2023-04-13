@@ -1,20 +1,32 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NativeSelect } from '@mantine/core';
 import styled from 'styled-components/macro';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomPrompt, getUserCreatedPrompts } from '../slice/selectors';
-import preMadePrompts from '../../../../data/prompts.json';
 import { useModalSlice } from 'app/components/Modal/slice';
+import fetchPrompts from 'utils/promptservice';
 
+interface Prompt {
+  act: string;
+  prompt: string;
+}
 function CustomPrompts() {
   const prompt = useSelector(getCustomPrompt);
   const userPrompts = useSelector(getUserCreatedPrompts);
   const { actions } = useModalSlice();
   const dispatch = useDispatch();
-
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
   const handleClick = () => {
     dispatch(actions.openPromptModal());
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const promptsData = await fetchPrompts();
+      setPrompts(promptsData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Wrapper>
@@ -24,10 +36,7 @@ function CustomPrompts() {
           value={prompt.act}
           defaultValue="None"
           onChange={event => console.log(event)}
-          data={[
-            ...preMadePrompts.map(p => p.act),
-            ...userPrompts.map(p => p.act),
-          ]}
+          data={[...prompts.map(p => p.act), ...userPrompts.map(p => p.act)]}
           label="Custom prompts"
           description="This will give your AI a personality and cater the conversation to your preferences."
           variant="filled"
