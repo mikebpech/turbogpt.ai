@@ -1,6 +1,7 @@
 import { ThemeState } from 'styles/theme/slice/types';
 import { ChatOptionsState } from 'app/pages/Chat/slice/types';
 import { ModalState } from 'app/components/Modal/slice/types';
+import { ParametersState } from 'app//slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -13,5 +14,6 @@ export interface RootState {
   theme?: ThemeState;
   chatOptions?: ChatOptionsState;
   modal?: ModalState;
+  parameters?: ParametersState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

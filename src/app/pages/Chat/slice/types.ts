@@ -1,4 +1,4 @@
-import { Message } from 'utils/types/injector-typings';
+import { Conversation, Message } from 'utils/types/injector-typings';
 
 /* --- STATE --- */
 export interface ChatOptionsState {
@@ -10,7 +10,7 @@ export interface ChatOptionsState {
   verifyingApiKey: boolean;
   apiPrevKey: string;
   messages: Message[];
-  conversations: Message[][];
+  conversations: Conversation[];
   selectedConversation: number;
   model: ApiModel;
   customPrompt: CustomPrompt;

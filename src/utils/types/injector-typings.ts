@@ -25,3 +25,14 @@ export type Message = {
   role: string;
   content: string;
 };
+
+export type Conversation = {
+  title: string;
+  messages: Message[];
+  subConvos?: Conversation[];
+};
+
+export type SubConvo = {
+  title: string;
+  messages: Message[];
+};

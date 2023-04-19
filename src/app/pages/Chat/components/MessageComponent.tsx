@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Badge } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import styled from 'styled-components/macro';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCharacter } from '../slice/selectors';
 import {
   characterOptions,
@@ -11,6 +11,7 @@ import {
 import { Actions } from './Actions';
 import { useMediaQuery } from 'react-responsive';
 import ReactMarkdown from 'react-markdown';
+import { useChatOptionsSlice } from '../slice';
 
 interface MessageComponentProps {
   role?: string;
@@ -42,6 +43,12 @@ export const MessageComponent = ({
 
   const characterSelected = useSelector(getCharacter);
   const [showActions, setShowActions] = React.useState(false);
+  const dispatch = useDispatch();
+  const { actions } = useChatOptionsSlice();
+
+  const handleForkConvo = () => {
+    dispatch(actions.addConvoFork(messageIdx));
+  };
 
   const detectFormatting = (message: string | React.ReactNode) => {
     if (typeof message !== 'string') {
@@ -159,6 +166,17 @@ export const MessageComponent = ({
             className="custom-name"
           >
             {customName}
+          </Badge>
+        )}
+        {role === 'assistant' && (
+          <Badge
+            onClick={() => handleForkConvo()}
+            className="custom-name"
+            size={isMobile ? 'xs' : 'sm'}
+            ml={5}
+            style={{ cursor: 'pointer' }}
+          >
+            FORK CONVO
           </Badge>
         )}
         <MessageBar

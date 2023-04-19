@@ -1,4 +1,4 @@
-import { Message } from 'utils/types/injector-typings';
+import { Conversation, Message } from 'utils/types/injector-typings';
 import { ApiModel, CustomPrompt } from './slice/types';
 
 export function saveOpenAiKey(key: string) {
@@ -78,16 +78,16 @@ export function getCustomAvatar(): string | null {
     : null;
 }
 
-export function saveConversationsToStorage(conversations: Message[][]) {
+export function saveConversationsToStorage(conversations: Conversation[]) {
   window.localStorage &&
     localStorage.setItem('conversations', JSON.stringify(conversations));
 }
 
-export function getConversationsFromStorage(): Message[][] | null {
+export function getConversationsFromStorage(): Conversation[] | null {
   return window.localStorage
     ? (JSON.parse(
         localStorage.getItem('conversations') as string,
-      ) as Message[][]) || null
+      ) as Conversation[]) || null
     : null;
 }
 
@@ -95,10 +95,10 @@ export function getMessagesInLocalStorage(): Message[] | null {
   const convos = window.localStorage
     ? (JSON.parse(
         localStorage.getItem('conversations') as string,
-      ) as Message[][]) || null
+      ) as Conversation[]) || null
     : null;
   if (convos) {
-    return convos[0];
+    return convos[0].messages;
   }
 
   return null;

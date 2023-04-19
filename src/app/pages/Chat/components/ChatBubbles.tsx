@@ -1,7 +1,7 @@
 import { characterOptions } from 'app/api/characters';
 import { Link } from 'app/components/Link';
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components/macro';
 import { StyleConstants } from 'styles/StyleConstants';
@@ -11,10 +11,11 @@ import {
   getGenerateName,
   getCharacter,
   getVerifyingApiKey,
-  getMessages,
+  getSelectedConversationTitle,
 } from '../slice/selectors';
 import { EllipsisAnimation } from './EllipsisAnimation';
 import { MessageComponent } from './MessageComponent';
+import { useChatOptionsSlice } from '../slice';
 
 export function ChatBubbles({
   messages,

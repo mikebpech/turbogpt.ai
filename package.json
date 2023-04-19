@@ -57,6 +57,7 @@
     "node-plop": "0.26.3",
     "plop": "2.7.6",
     "prettier": "2.7.1",
+    "query-string": "8.1.0",
     "react": "18.2.0",
     "react-animated-text-content": "1.0.1",
     "react-app-polyfill": "3.0.0",
