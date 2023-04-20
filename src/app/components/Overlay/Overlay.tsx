@@ -28,7 +28,7 @@ export function Overlay({ isOpened = false }: { isOpened: boolean }) {
         <SegmentedControl
           mb="xs"
           variant="filled"
-          color="red"
+          color="blue"
           disabled={apiKeyVerifying}
           size="md"
           onChange={handleTabChange}
@@ -59,41 +59,6 @@ export function Overlay({ isOpened = false }: { isOpened: boolean }) {
             <Conversations />
           </>
         )}
-        <Footer>
-          <div className="items">
-            <Item
-              href="https://ko-fi.com/mikepechousek"
-              target="_blank"
-              title="Buy me a coffee"
-            >
-              Buy me a coffee
-            </Item>
-            <Item
-              href="https://twitter.com/turbogpt"
-              target="_blank"
-              title="Twitter Page"
-              rel="noopener noreferrer"
-            >
-              <TwitterIcon width={18} style={{ marginRight: 5 }} />
-              Twitter
-            </Item>
-            <Item
-              href="https://hccar8zm06k.typeform.com/to/An6RHMdE"
-              target="_blank"
-            >
-              <IconBulb width={18} style={{ marginRight: 5 }} />
-              Idea
-            </Item>
-          </div>
-          <Love>
-            Made with{' '}
-            <IconHeartFilled
-              size={12}
-              style={{ margin: '0 5px', color: 'red' }}
-            />{' '}
-            in Montreal
-          </Love>
-        </Footer>
       </Inner>
     </Wrapper>
   );

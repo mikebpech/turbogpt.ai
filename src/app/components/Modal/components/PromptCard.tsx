@@ -22,7 +22,6 @@ function PromptCard({
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
-
   const handleSelectPrompt = (prompt: CustomPrompt) => {
     if (active) {
       dispatch(actions.setCustomPrompt({ act: 'None', prompt: '' }));
@@ -37,7 +36,7 @@ function PromptCard({
   };
 
   return (
-    <Grid.Col style={{margin: 'auto auto'}} span={isMobile ? 10 : 4}>
+    <Grid.Col style={{ margin: 'auto auto' }} span={isMobile ? 10 : 4}>
       <Card shadow="sm" padding="md" radius="md" withBorder>
         <Group position="apart" mt="md" mb="xs">
           <Text>{title}</Text>
@@ -51,7 +50,7 @@ function PromptCard({
               handleSelectPrompt({ act: title, prompt: description })
             }
             variant={active ? 'gradient' : 'light'}
-            color="red"
+            color="blue"
             fullWidth
             mt="md"
             radius="md"

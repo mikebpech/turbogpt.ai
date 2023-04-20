@@ -12,14 +12,7 @@ export function Logo() {
 
   return (
     <Wrapper>
-      <Title>
-        <LogoIcon
-          width={25}
-          height={25}
-          style={{ marginBottom: '5px', imageRendering: 'crisp-edges' }}
-        />{' '}
-        TurboGPT
-      </Title>
+      <Title>🔶 MojoMosaic™</Title>
       {!isTabletOrMobile && (
         <Description>
           model: <span>{model === 'gpt-4' ? 'gpt-4' : 'gpt-3.5-turbo'}</span>

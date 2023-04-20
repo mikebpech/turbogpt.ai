@@ -3,16 +3,32 @@ import { Button, CloseButton, Divider } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useChatOptionsSlice } from '../slice';
-import { getConversations, getSelectedConversation } from '../slice/selectors';
+import {
+  getConversations,
+  getCurrentFork,
+  getSelectedConversation,
+} from '../slice/selectors';
 
 export function Conversations() {
   const dispatch = useDispatch();
   const conversations = useSelector(getConversations);
   const currentConversation = useSelector(getSelectedConversation);
+  const currentFork = useSelector(getCurrentFork);
   const { actions } = useChatOptionsSlice();
 
   const selectConversation = (index: number) => {
     dispatch(actions.setSelectedConversation(index));
+    dispatch(actions.setCurrentFork(-1));
+  };
+
+  const deleteFork = (convoIndex: number) => {
+    dispatch(actions.removeConvoFork(convoIndex));
+    dispatch(actions.setCurrentFork(-1));
+  };
+
+  const selectForkConvo = (convoIndex, index: number) => {
+    dispatch(actions.setSelectedConversation(convoIndex));
+    dispatch(actions.setCurrentFork(index));
   };
 
   const createNewConvo = () => {
@@ -39,7 +55,7 @@ export function Conversations() {
           <ButtonWrap>
             <Button
               key={index}
-              color="red"
+              color="blue"
               mr="sm"
               size="md"
               maw={220}
@@ -74,8 +90,12 @@ export function Conversations() {
                 size="sm"
                 maw={190}
                 fullWidth
-                variant={currentConversation === index ? 'filled' : 'light'}
-                onClick={() => selectConversation(index)}
+                variant={
+                  currentConversation === index && currentFork === subIndex
+                    ? 'filled'
+                    : 'light'
+                }
+                onClick={() => selectForkConvo(index, subIndex)}
               >
                 {subConvo.title !== ''
                   ? subConvo.title
@@ -87,7 +107,7 @@ export function Conversations() {
               </Button>
               <CloseButton
                 disabled={conversations.length <= 1}
-                onClick={() => dispatch(actions.removeConversation(index))}
+                onClick={() => deleteFork(subIndex)}
                 variant="light"
                 title="Close popover"
                 size="xl"

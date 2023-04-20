@@ -21,11 +21,11 @@ export function App() {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - TurboGPT"
-        defaultTitle="TurboGPT"
+        titleTemplate="%s - MojoMosaic™"
+        defaultTitle="MojoMosaic™"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="Better TurboGPT" />
+        <meta name="description" content="MojoMosaic™" />
       </Helmet>
 
       <Routes>

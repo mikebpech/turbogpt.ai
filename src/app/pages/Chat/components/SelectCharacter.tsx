@@ -45,7 +45,7 @@ function SelectCharacter() {
         variant="default"
       />
       <Checkbox
-        color="red"
+        color="blue"
         checked={useCustomName}
         onChange={event => debouncedUseCustomName(event.currentTarget.checked)}
         className="checkbox"

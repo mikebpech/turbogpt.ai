@@ -162,7 +162,7 @@ export const MessageComponent = ({
         {role === 'assistant' && customName && (
           <Badge
             size={isMobile ? 'xs' : 'sm'}
-            color="red"
+            color="blue"
             className="custom-name"
           >
             {customName}

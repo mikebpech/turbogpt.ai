@@ -92,10 +92,10 @@ export function APIKey() {
       return <IconLock size={16} />;
     }
     if (isLoading || isFetching) {
-      return <Loader color="red" size={16} />;
+      return <Loader color="blue" size={16} />;
     }
     if (error) {
-      return <IconX size={16} color="red" />;
+      return <IconX size={16} color="blue" />;
     }
     if (!error && !isLoading && data?.ok) {
       return <IconCheck size={16} color="green" />;

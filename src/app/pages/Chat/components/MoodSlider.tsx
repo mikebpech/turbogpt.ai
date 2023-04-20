@@ -39,7 +39,7 @@ export function MoodSlider() {
       <Slider
         value={currentMood}
         onChange={val => setCurrentMood(val)}
-        color="red"
+        color="blue"
         marks={Moods}
       />
     </Wrapper>

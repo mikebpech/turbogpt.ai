@@ -15,6 +15,7 @@ export interface ChatOptionsState {
   model: ApiModel;
   customPrompt: CustomPrompt;
   userCreatedPrompts: CustomPrompt[];
+  currentFork: number;
 }
 
 export type CustomPrompt = {

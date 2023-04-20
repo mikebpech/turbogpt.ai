@@ -54,7 +54,7 @@ function PromptModal() {
             size="md"
             onChange={handleTabChange}
             value={selectedTab.toString()}
-            color="red"
+            color="blue"
             variant="filled"
             data={[
               { label: 'All prompts', value: '0' },

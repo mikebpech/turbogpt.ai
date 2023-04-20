@@ -49,7 +49,7 @@ export function ChatPage() {
       <Body>
         {!isTabletOrMobile && <LeftSidebar />}
         <Wrapper isMobile={isTabletOrMobile}>
-          <Title>🧨 TurboGPT</Title>
+          <Title>🔶 MojoMosaic™</Title>
           <Textbox />
         </Wrapper>
       </Body>

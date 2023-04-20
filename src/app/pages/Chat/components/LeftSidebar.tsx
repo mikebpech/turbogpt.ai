@@ -30,7 +30,7 @@ export function LeftSidebar() {
             size="xs"
             onChange={handleTabChange}
             value={selectedTab.toString()}
-            color="red"
+            color="blue"
             variant="filled"
             data={[
               { label: 'Options', value: '0' },
@@ -56,14 +56,6 @@ export function LeftSidebar() {
             <Conversations />
           </>
         )}
-        <Love>
-          Made with{' '}
-          <IconHeartFilled
-            size={16}
-            style={{ margin: '0 5px', color: 'red' }}
-          />{' '}
-          in Montreal
-        </Love>
       </Inner>
     </Wrapper>
   );

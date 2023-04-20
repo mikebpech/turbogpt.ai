@@ -81,7 +81,7 @@ export function Input({
           variant="filled"
           radius="md"
           ml={10}
-          color="red"
+          color="blue"
           style={{ padding: '0 10px' }}
         >
           <IconRefresh />

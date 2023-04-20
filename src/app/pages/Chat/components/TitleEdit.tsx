@@ -45,7 +45,7 @@ function TitleEdit({ onClick }: { onClick: () => void }) {
         <CloseButton
           onClick={() => onClick()}
           title="Close popover"
-          color="red"
+          color="blue"
           variant="filled"
           size="lg"
           iconSize={20}
