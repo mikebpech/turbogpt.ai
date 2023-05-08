@@ -12,9 +12,8 @@ import {
 } from 'app/pages/Chat/slice/selectors';
 import { Grid, SegmentedControl, Input, useMantineTheme } from '@mantine/core';
 import PromptCard from './components/PromptCard';
-import prompts from '../../../data/prompts.json';
 import CreatePrompt from './components/CreatePrompt';
-
+import fetchPrompts from 'utils/promptservice';
 const CustomGrid = styled(Grid).withConfig<{ matineTheme: any }>({
   shouldForwardProp: prop => prop !== 'matineTheme',
 })<{ matineTheme: any }>`
@@ -37,6 +36,10 @@ const CustomGrid = styled(Grid).withConfig<{ matineTheme: any }>({
 `}
 `;
 
+interface Prompt {
+  act: string;
+  prompt: string;
+}
 function PromptModal() {
   const matineTheme = useMantineTheme();
   const { actions } = useModalSlice();
@@ -46,13 +49,23 @@ function PromptModal() {
   const isOpen = useSelector(selectPromptModalOpen);
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = React.useState('');
-  const promptsToMap = (selectedTab === 0 ? prompts : userPrompts).filter(
-    prompt =>
-      prompt.prompt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      prompt.act.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const [prompts, setPrompts] = React.useState<Prompt[]>([]);
+  const promptsToMap =
+    (selectedTab === 0 ? prompts : userPrompts)?.filter(
+      prompt =>
+        prompt?.prompt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        prompt?.act?.toLowerCase().includes(searchQuery.toLowerCase()),
+    ) ?? [];
 
   const isMobile = useMediaQuery({ query: '(max-width: 480px)' });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const promptsData = await fetchPrompts();
+      setPrompts(promptsData as Prompt[]);
+    };
+    fetchData();
+  }, []);
 
   const onClose = () => {
     dispatch(actions.closePromptModal());
