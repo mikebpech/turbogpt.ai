@@ -28,7 +28,7 @@ export function PickModel() {
       <NativeSelect
         value={model}
         onChange={event => setModel(event.currentTarget.value as ApiModel)}
-        data={['gpt-3.5-turbo', 'gpt-4']}
+        data={['gpt-4', 'gpt-4-1106-preview']}
         label="Select your model"
         description="This allows you to pick the model you want to use. To use GPT-4 your API Key must have access to it."
         variant="default"

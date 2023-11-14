@@ -22,7 +22,8 @@ export function Logo() {
       </Title>
       {!isTabletOrMobile && (
         <Description>
-          model: <span>{model === 'gpt-4' ? 'gpt-4' : 'gpt-3.5-turbo'}</span>
+          model:{' '}
+          <span>{model === 'gpt-4' ? 'gpt-4' : 'gpt-4-1106-preview'}</span>
         </Description>
       )}
     </Wrapper>
