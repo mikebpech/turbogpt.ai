@@ -51,7 +51,7 @@ export const sendMessage = async function* (
     }
   }
 
-  if (model === 'gpt-4-1106-preview') {
+  if (model === 'gpt-4-turbo-preview') {
     if (copy.length > 16) {
       copy = copy.slice(copy.length - 16, copy.length);
     }
