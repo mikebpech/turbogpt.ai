@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
-import ConfettiExplosion from 'react-confetti-explosion';
 import { useMediaQuery } from 'react-responsive';
 import { ReactComponent as LogoIcon } from './assets/logo.svg';
 import { useSelector } from 'react-redux';
@@ -23,7 +22,7 @@ export function Logo() {
       {!isTabletOrMobile && (
         <Description>
           model:{' '}
-          <span>{model === 'gpt-4' ? 'gpt-4' : 'gpt-4-1106-preview'}</span>
+          <span>{model === 'gpt-4' ? 'gpt-4' : 'gpt-4-turbo-preview'}</span>
         </Description>
       )}
     </Wrapper>
